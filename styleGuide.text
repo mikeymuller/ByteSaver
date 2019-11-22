@@ -1,0 +1,12 @@
+File system naming and lcoation conventions:
+    Put all source code in respective folder in /src.
+    Javscript and CSS file name should be based on reference html page:
+        CSS: homepage.html -> homepage.css 
+        Javscript: homepage.html -> hompageController.js 
+
+
+Colors:
+#000C30 - Masstricht blue
+#FF521B - Giants orange
+#BFDBF7 - Pale aqua
+#1F7A8C - Metallic seaweed
