@@ -8,6 +8,7 @@
     "prod": "cross-env DEBUG=server node -r esm bin/server.js"
   },
   "dependencies": {
+    "autocompleter": "^5.2.0",
     "bcrypt": "^3.0.6",
     "bootstrap": "^4.3.1",
     "browser-sync": "^2.26.7",

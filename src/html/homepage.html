@@ -7,6 +7,7 @@
         <title>BytseSaver</title>
 
         <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.css"/>
+        <link rel="stylesheet" href="../../other_modules/jQuery_autoComplete/jquery.auto-complete.css"/>
         <link rel="stylesheet" href="../css/homepage.css"/>
     </head>
 
@@ -15,16 +16,19 @@
             <div class = "location-searcher text-center">
                 <h1> Where do you want to eat?</h1>
                 <div class="input-group input-group-lg">
-                    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg">
+                    <input type="text" class="form-control location-input" aria-label="Sizing example input" 
+                    aria-describedby="inputGroup-sizing-lg">
                 </div>
+                <button type="button" class="btn btn-outline-primary btn-lg location-search-button">Search</button>
             </div>
             <div class="saved-lists container">
                 <h2> Your saved lists: </h2>
             </div>
         </div>
 
-        <script src="node_modules/jquery/dist/jquery.js"></script>
-        <script src="./src/Javascript/homepageController.js"></script>
+        <script src="../../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../../other_modules/jQuery_autoComplete/jquery.auto-complete.min.js"></script>
+        <script src="../Javascript/hompageController.js" type="module"></script>
     </body>
 </html>
 
