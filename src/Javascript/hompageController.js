@@ -1,4 +1,6 @@
 const CITIES = ['Portland, OR', 'Boston, MA', 'Chapel Hill, NC'];
+let cityParam = undefined;
+let stateParam = undefined;
 
 export const setUpAutocompleter = function(){ 
 
@@ -27,7 +29,12 @@ const searchButtonHandler = function(){
         console.log("empty");
     }
     else{
-        validateCity(locationText) ? console.log("success") : console.log("city not found");
+        if(validateCity(locationText)){
+            window.location.href = `restaurantSearch.html?state=${stateParam}&city=${cityParam}`;
+        }
+        else{
+            console.log("city not found");
+        }
     }
 }
 
@@ -37,16 +44,16 @@ export const setUpPage=function(){
     });
 }
 
-const validateCity = function(cityName){
+const validateCity = function(input){
     let result = false;
     CITIES.forEach(city =>{
-        if(city == cityName){
-            result = true;
-            return;
-        }
-        city = city.split(",")[0].toLowerCase();
-        cityName = cityName.split(",")[0].toLowerCase();
-        if(city == cityName){
+        let splitString = city.split(",");
+        let cityName = splitString[0].toLowerCase().trim();
+        let stateName = splitString[1].toLowerCase().trim();
+        let inputName = input.split(",")[0].toLowerCase().trim();
+        if(city == input || cityName == inputName){
+            cityParam = cityName;
+            stateParam = stateName;
             result = true;
             return;
         }
@@ -55,11 +62,7 @@ const validateCity = function(cityName){
 }
 
 
-
-
-
-
 $().ready(function() {
     setUpPage();
     setUpAutocompleter();
-})
+});
