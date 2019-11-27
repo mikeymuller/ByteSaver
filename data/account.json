@@ -1,2 +1,25 @@
 {
+  "users": {
+    "t": {
+      "passwordHash": "$2b$10$12nfjQftnvj2kBeIyi4kuO/20QZY6bK9DUZUajdZP6IMzTvjhMdSG",
+      "data": {
+        "email": "t@hi.com",
+        "username": "t"
+      }
+    },
+    "k": {
+      "passwordHash": "$2b$10$sfzMkaAwG5VmMkcUQOr/MusHjUnEa8jiuMDUCbdHOZ1uUdbs63NRK",
+      "data": {
+        "email": "kag728@hotmail.com",
+        "username": "k"
+      }
+    },
+    "rahi": {
+      "passwordHash": "$2b$10$d73iSjyB.l.g0t7B9Tzo7.USBD0erV57k3EAX7yq.jY69giY0.V8C",
+      "data": {
+        "email": "rahi@patel.com",
+        "username": "rahipatel"
+      }
+    }
+  }
 }

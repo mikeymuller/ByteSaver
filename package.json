@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@tonybadguy/call-me-maybe": "^2.1.1",
+    "axios": "^0.19.0",
     "bcrypt": "^3.0.6",
     "bootstrap": "^4.4.0",
     "browser-sync": "^2.26.7",
