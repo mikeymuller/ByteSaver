@@ -11,8 +11,23 @@ $(document).on('click', "#signIn", async function(event){
         }
     });
     r.then(response => {
-        window.location.href = "homepage.html";
+        loginUser($('#inputFirstName').val(), $('#inputPassword').val());
     }).catch(error => {
         $('#message').html('<div><strong>Account already exists</strong></div>');
     });
    });
+
+function loginUser(name, pass){
+    console.log("working");
+    let r = new axios.post('http://localhost:3000/account/login',
+    {
+        name: name,
+        pass: pass,
+    });
+    r.then(response => {
+        localStorage.setItem('token', response.data.jwt);
+        window.location.href = "homepage.html";
+    }).catch(error => {
+        $('#message').html('<div><strong>Invalid username or password</strong></div>');
+    });
+}
