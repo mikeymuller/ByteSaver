@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <title>BytseSaver</title>
+        <title>ByteSaver</title>
 
         <!-- Include links to CSS stylesheets below -->
         <!-- TODO (optional): Add link to bulma here -->
@@ -14,25 +14,25 @@
 
     <body class="text-center">
         <form class="form-signin">
-            <img class="mb-4" src="INSERT LOGO HERE" alt="" width="72" height="72">
             <h1 class="h3 mb-3 font-weight-normal">Please login</h1>
-            <label for="inputUsername" class="sr-only">Username</label>
             <input type="text" id="inputUsername" class="form-control" placeholder="Username" required autofocus>
-            <label for="inputPassword" class="sr-only">Password</label>
             <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
             <div class="checkbox mb-3">
               <label>
                 <input type="checkbox" value="remember-me"> Remember me
               </label>
             </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit" id="login">Sign in</button>
             <p class="mt-5 mb-3 text-muted">&copy; 2019 ByteSaver Inc.</p>
           </form>
 
         <!--Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>-->
         <!-- Include links to JavaScript files below -->
         <!-- TODO: Add link to jQuery here -->
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
         <script src="../../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../Javascript/account.js"></script>
+        "
     </body>
 </html>
 

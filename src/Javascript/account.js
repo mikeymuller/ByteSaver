@@ -18,7 +18,6 @@ $(document).on('click', "#signIn", async function(event){
    });
 
 function loginUser(name, pass){
-    console.log("working");
     let r = new axios.post('http://localhost:3000/account/login',
     {
         name: name,
@@ -31,3 +30,8 @@ function loginUser(name, pass){
         $('#message').html('<div><strong>Invalid username or password</strong></div>');
     });
 }
+
+$(document).on('click', "#login", async function(event){
+    
+});
+
