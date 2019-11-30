@@ -24,10 +24,19 @@ a:hover {
  * Base structure
  */
 
-html,
-body {
+html, body {
   height: 100%;
-  background-color: #000c30;
+  background-image: url("../../images/background.jpeg");
+
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-color: rgba(255, 255, 255, 0.4);
+  background-blend-mode: lighten;
 }
 
 body {
