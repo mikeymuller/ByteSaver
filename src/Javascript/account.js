@@ -1,22 +1,3 @@
-$(document).on('click', "#signIn", async function(event){
-    event.preventDefault();
-    $('#message').html('');
-    let r = new axios.post('http://localhost:3000/account/create',
-    {
-        name: $('#inputFirstName').val(),
-        pass: $('#inputPassword').val(),
-        data: {
-            email: $('#inputEmail').val(),
-            username: $('#inputUsername').val(),
-        }
-    });
-    r.then(response => {
-        loginUser($('#inputFirstName').val(), $('#inputPassword').val());
-    }).catch(error => {
-        $('#message').html('<div><strong>Account already exists</strong></div>');
-    });
-   });
-
 function loginUser(name, pass){
     let r = new axios.post('http://localhost:3000/account/login',
     {
@@ -27,11 +8,41 @@ function loginUser(name, pass){
         localStorage.setItem('token', response.data.jwt);
         window.location.href = "homepage.html";
     }).catch(error => {
-        $('#message').html('<div><strong>Invalid username or password</strong></div>');
+        $('#loginMessage').html('<div><strong>Invalid username or password</strong></div>');
     });
 }
 
+$(document).on('click', "#signIn", async function(event){
+    event.preventDefault();
+    $('#message').html('');
+    if ($('#inputPassword').val() !== $('#inputRetypePassword').val()) {
+        $('#message').html('<div><strong>Passwords do not match</strong></div>');
+    }
+    else if ($('#inputPassword').val().length < 8 || !(/\d/.test($('#inputPassword').val()))){
+        $('#message').html('<div><strong>Password must be 8 characters long and contain a number</strong></div>');
+    }
+    else {
+        let r = new axios.post('http://localhost:3000/account/create',
+        {
+            name: $('#inputUsername').val(),
+            pass: $('#inputPassword').val(),
+            data: {
+                email: $('#inputEmail').val(),
+                firstName: $('#inputFirstName').val(),
+                lastName: $('#inputLastName').val()
+            }
+        });
+        r.then(response => {
+            loginUser($('#inputUsername').val(), $('#inputPassword').val());
+        }).catch(error => {
+            $('#message').html('<div><strong>Username taken. Please choose another username</strong></div>');
+        });
+    }
+   });
+
 $(document).on('click', "#login", async function(event){
-    
+    event.preventDefault();
+    $('#message').html('');
+    loginUser($('#inputUsername').val(), $('#inputPassword').val())
 });
 
