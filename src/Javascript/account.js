@@ -6,6 +6,7 @@ function loginUser(name, pass){
     });
     r.then(response => {
         localStorage.setItem('token', response.data.jwt);
+        
         window.location.href = "homepage.html";
     }).catch(error => {
         $('#loginMessage').html('<div><strong>Invalid username or password</strong></div>');
