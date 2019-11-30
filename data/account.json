@@ -1,2 +1,12 @@
 {
+  "users": {
+    "kag728": {
+      "passwordHash": "$2b$10$MrBzT0WeN4PW9WyDe8XyFu4pdb2mq0A0CuPpeKspC7qQOASwT1aWK",
+      "data": {
+        "email": "kag728@gmail.com",
+        "firstName": "Katherine",
+        "lastName": "Griffin"
+      }
+    }
+  }
 }
