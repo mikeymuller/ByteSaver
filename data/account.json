@@ -1,11 +1,2 @@
 {
-  "users": {
-    "katherine": {
-      "passwordHash": "$2b$10$vW.u5rGbt0/LfSALhX829erVKH3K/MjqxZ0Ae3XlBL3jPzlxMzhXW",
-      "data": {
-        "email": "kag728@gmail.com",
-        "username": "kag728"
-      }
-    }
-  }
 }
