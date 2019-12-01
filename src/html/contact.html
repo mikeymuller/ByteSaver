@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>ByteSaver</title>
+
+  <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.css" />
+  <link rel="stylesheet" href="../css/login.css" />
+</head>
+
+<body class="text-center">
+  <form class="form-signin">
+    <img class="mb-4" src="../../images/logo.png" alt="" width="250" height="250">
+    <h1 class="h3 mb-3 font-weight-normal">Contact us!</h1>
+    <input type="text" id="name" class="form-control" placeholder="Name" required>
+    <input type="email" id="email" class="form-control" placeholder="Email address" autocomplete="username"
+      required autofocus>
+      <textarea id="comments" class="md-textarea form-control" rows="3" placeholder="What's on your mind?"></textarea>
+      <a class="btn btn-lg btn-primary btn-block" id="contactButton" onclick=loadEvents()>Contact us!</a>
+    <div class="field">
+      <div class="control">
+        <p id="message"></p>
+      </div>
+    </div>
+    <p class="mt-5 mb-3 text-muted">&copy; 2019 ByteSaver Inc.</p>
+  </form>
+
+  <!--Cover template for <a href="https://getbootstrap.com/">Bootstrap</a>, by <a href="https://twitter.com/mdo">@mdo</a>.</p>-->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="../../node_modules/jquery/dist/jquery.js"></script>
+  <script type="text/javascript">
+    function loadEvents() {
+        var mailString;
+        console.log("here");
+        function updateMailString() {
+            console.log("inside");
+            mailString = '?subject=' + encodeURIComponent($('#name').val())
+                + '&body=' + encodeURIComponent($('#comments').val());
+            $('#contactButton').attr('href',  'mailto:bytesaver2019@gmail.com' + mailString);
+        }
+        $( "#name" ).focusout(function() { updateMailString(); });
+        $( "#comments" ).focusout(function() { updateMailString(); });
+        updateMailString();
+    }
+</script>
+</body>
+
+</html>
+

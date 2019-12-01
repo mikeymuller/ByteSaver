@@ -26,7 +26,7 @@ a:hover {
 
 html, body {
   height: 100%;
-  background-image: url("../../images/background.jpeg");
+  background-image: url("../../images/darker\ \(1\).png");
 
   /* Full height */
   height: 100%;
@@ -36,15 +36,14 @@ html, body {
   background-repeat: no-repeat;
   background-size: cover;
   background-color: rgba(255, 255, 255, 0.4);
-  background-blend-mode: lighten;
+  background-blend-mode: luminosity;
 }
 
 body {
   display: -ms-flexbox;
   display: flex;
   color: #fff;
-  text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
-  box-shadow: inset 0 0 5rem rgba(0, 0, 0, .5);
+  box-shadow: inset 1 1 2rem rgba(0, 0, 0, .5);
 }
 
 .cover-container {
@@ -113,3 +112,4 @@ body {
 .mastfoot {
   color: rgba(255, 255, 255, .5);
 }
+
