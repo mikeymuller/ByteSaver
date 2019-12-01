@@ -1,12 +1,13 @@
 import { Side_Panel } from "./models/sidePanel.js";
+import { APICaller } from "./models/APICaller.js/index.js";
 
 export const testFun = function(data) {
     alert(data);
 }
 
-export const loadSidePanel = function(user, city, list_name) {
+export const loadSidePanel = function(user, city, list_name, data) {
    
-    let panel = new Side_Panel(user, city);
+    let panel = new Side_Panel(user, city, data);
     let lists = panel.getListNames();
     let first_list = panel.getList(list_name);
 
@@ -62,6 +63,21 @@ $(document).on('change', '#list_selector', () => {
 });
 
 $(function() {
-    loadSidePanel("jamesb3", "Chapel Hill", "Burgers");
+    
+    let username = '';
+    let yelp = new APICaller();
+
+    return new axios.get('http://localhost:3000/account/status', {
+        "headers": {
+            "Authorization": "Bearer " + localStorage.getItem('token')
+        }
+    }).then((results) => {
+        username = results.data.user.name;
+    }).then(() => {
+        return yelp.search(yelp.getUrlParameter('city'), yelp.getUrlParameter('state')).then((result) => {
+            console.log(result);
+            loadSidePanel(username, yelp.toTitleCase(yelp.getUrlParameter('city')), "All", result);
+        });
+    });
 });
 

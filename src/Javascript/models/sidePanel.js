@@ -1,24 +1,28 @@
-import restaurant_lists from "./restaurant_lists.js";
-
 export class Side_Panel {
 
-    constructor(user_id, city_name) {
+    constructor(user_id, city_name, data) {
 
         this.user_id = user_id;
         this.city_name = city_name;
-
-        this.results = restaurant_lists.filter((item) => {
-            return item.User_id == this.user_id;
-        })[0].Cities.filter((item) => {
-            return item.City_id == this.city_name;
-        })[0].Restaurant_lists;
+        this.data = data;
     }
+    
+    /* 
+    * TO DO:
+    *   Link listnames to data/users
+    *   Change getList() to return all information
+    *   Add more specific list options to cards
+    */
 
     getListNames() {
-        return Object.keys(this.results);
+        return ["All"];
     }
 
     getList(list_name) {
-        return this.results[list_name];
+        let restaurants = [];
+        this.data.forEach((item) => {
+            restaurants.push(item.name);
+        })
+        return restaurants;
     }
 }

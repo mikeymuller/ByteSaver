@@ -30,7 +30,7 @@ const searchButtonHandler = function(){
     }
     else{
         if(validateCity(locationText)){
-            window.location.href = `restaurantSearch.html?state=${stateParam}&city=${cityParam}`;
+            window.location.href = `results.html?state=${stateParam}&city=${cityParam}`;
         }
         else{
             console.log("city not found");
