@@ -1,5 +1,5 @@
 import { Side_Panel } from "./models/sidePanel.js";
-import { APICaller } from "./models/APICaller.js/index.js";
+import { APICaller } from "./models/APICaller.js";
 
 export const testFun = function(data) {
     alert(data);
