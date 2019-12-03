@@ -1,6 +1,9 @@
 # ByteSaver
 The best restaurant tracking app you will ever see.
 
+## Workflowy
+https://workflowy.com/s/final-project-1212/FMRe6SLYVTkEWKPm
+
 ## API backend
 ### Set up local host
 1. Make sure to `npm install` all dependencies.
