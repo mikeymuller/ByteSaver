@@ -1,6 +1,6 @@
+// From https://hackernoon.com/json-of-5-950-usa-cities-and-their-states-29352c40ad21
 
-[
-  
+[  
   {'city': 'Abbeville', 'state': 'Louisiana'},
   {'city': 'Aberdeen', 'state': 'Maryland'},
   {'city': 'Aberdeen', 'state': 'Mississippi'},
