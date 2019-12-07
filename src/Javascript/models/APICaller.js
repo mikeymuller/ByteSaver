@@ -14,6 +14,31 @@ export class APICaller {
         return res.data;
     }
 
+    /**
+     * Returns list of restaurants that match array of filters.
+     * @param {*} list 
+     * @param {*} filters 
+     */
+    filter(list, filters){
+        let result = [];
+        list.forEach(restaurant => {
+            let resCategories = restaurant.categories;
+            resCategories.forEach(resCategory =>{
+                filters.forEach(filter =>{
+                    if(filter == resCategory.alias){
+                        result.push(restaurant);
+                    }
+                });
+            });
+        });
+        if(result.length == 0){
+            return null;
+        }
+        else{
+            return result;
+        }
+    }
+
     getUrlParameter(name) {
         name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
         var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');

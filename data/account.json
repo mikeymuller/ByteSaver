@@ -7,6 +7,14 @@
         "firstName": "Katherine",
         "lastName": "Griffin"
       }
+    },
+    "mikeymuller": {
+      "passwordHash": "$2b$10$W4XgY9P9.8/O0mCmR9VuwuxLA9uXm6nU7CBm0bFAWAoem4yJkjmju",
+      "data": {
+        "email": "mikey17@live.unc.edu",
+        "firstName": "Mikey",
+        "lastName": "Muller"
+      }
     }
   }
 }
