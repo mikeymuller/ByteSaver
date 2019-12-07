@@ -7,15 +7,28 @@ export class APICaller {
             method: 'GET',
             }).then(response => {
             res = response;
-            console.log(res);
             }).catch(e => {
             console.log(e);
-            });;
+            });
+        return res.data;
+    }
+
+    async getReviews(alias){
+        let res = undefined;
+        await axios({
+            url: `http://localhost:3001/api/reviews/${alias}`,
+            method: 'GET',
+            }).then(response => {
+            res = response;
+            }).catch(e => {
+            console.log(e);
+            });
         return res.data;
     }
 
     /**
      * Returns list of restaurants that match array of filters.
+     * Filters must be in form of array.
      * @param {*} list 
      * @param {*} filters 
      */
@@ -38,6 +51,35 @@ export class APICaller {
             return result;
         }
     }
+
+    getRestaurantImageUrl(restaurant){
+        return restaurant.image_url;
+    }
+
+    getRestaurantRating(restaurant){
+        return restaurant.rating;
+    }
+
+    getRestaurantPrice(restaurant){
+        return restaurant.price.length;
+    }
+
+    getRestaurantImageUrl(restaurant){
+        return restaurant.image_url;
+    }
+
+    getReviewText(review){
+        return review.text;
+    }
+
+    getReviewRating(review){
+        return review.rating;
+    }
+
+    getReviewUserName(review){
+        return review.user.name;
+    }
+
 
     getUrlParameter(name) {
         name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');

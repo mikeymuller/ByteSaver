@@ -27,6 +27,17 @@ app.get('/api/search', async (req,res) =>{
     res.send(searchResponse);
 });
 
+app.get('/api/reviews/:id', async(req,res) => {
+    let id = req.params.id;
+    await client.reviews(id)
+    .then(response => {
+        searchResponse = response.jsonBody.reviews;
+        }).catch(e => {
+        console.log(e);
+        });
+    console.log(searchResponse);
+    res.send(searchResponse);
+})
 
 const port = process.env.PORT || 3001;
 
