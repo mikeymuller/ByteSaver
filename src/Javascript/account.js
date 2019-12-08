@@ -46,4 +46,3 @@ $(document).on('click', "#login", async function(event){
     $('#message').html('');
     loginUser($('#inputUsername').val(), $('#inputPassword').val())
 });
-
