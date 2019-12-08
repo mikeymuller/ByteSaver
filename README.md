@@ -7,7 +7,7 @@ https://workflowy.com/s/final-project-1212/FMRe6SLYVTkEWKPm
 ## API backend
 ### Set up local host
 1. Make sure to `npm install` all dependencies.
-2. In terminal, type `npx nodeman API/app.js` to start server on port 3001.
+2. In terminal, type `npx nodemon API/app.js` to start server on port 3001.
 ### Calling backend API from frontend javascript
 All calls to the backend API can be made through the **APICaller.js** file. Whenever you want to get data from yelp, make sure to first import the desired function from the APICaller file.
 
