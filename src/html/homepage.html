@@ -6,13 +6,34 @@
 
         <title>ByteSaver</title>
 
-        <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.css"/>
+        <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="../../other_modules/jQuery_autoComplete/jquery.auto-complete.css"/>
         <link rel="stylesheet" href="../css/homepage.css"/>
+        <link href="../../navbar-with-icons-master/css/pe-icon-7-stroke.css" rel="stylesheet" />
+        <link href="../../navbar-with-icons-master/css/ct-navbar.css" rel="stylesheet" />
     </head>
 
     <body>
         <div class="container">
+                <nav class="navbar navbar-ct-default navbar-fixed-top" role="navigation">
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                        <a href="" data-toggle="dropdown">
+                            <i class="pe-7s-user"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a href="">Home</a></li>
+                            <li><a href="">Settings</a></li>
+                            <li class="divider"></li>
+                            <li><a href="">Sign out</a></li>
+                        </ul>
+                        </li>
+                    </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div><!-- /.container-fluid -->
+                </nav>
+                  <!--  end navbar -->
             <div class = "location-searcher text-center">
                 <h1> Where do you want to eat?</h1>
                 <div class="input-group input-group-lg">
@@ -29,6 +50,9 @@
         <script src="../../node_modules/jquery/dist/jquery.js"></script>
         <script src="../../other_modules/jQuery_autoComplete/jquery.auto-complete.min.js"></script>
         <script src="../Javascript/homepageController.js" type="module"></script>
+        <script src="../../navbar-with-icons-master/js/bootstrap.js"></script>
+        <script src="../../navbar-with-icons-master/js/ct-navbar.js"></script>
+
     </body>
 </html>
 
