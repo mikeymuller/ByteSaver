@@ -6,8 +6,7 @@ export const testFun = function(data) {
     alert(data);
 }
 
-export const loadSidePanel = function(user, city, list_name, data) {
-   
+export const loadSidePanel = function(data) {
     populateList(data);
 };
 
@@ -34,13 +33,10 @@ let populateList = function(first_list) {
 
     first_list.forEach((item) => {
 
-        let button = '';
-        if (isInList(item.id)) {
-            button = `<a href="#" id="list_button_${item.id}" class="btn btn btn-primary text-light btn-block">Add to list</a>`;
-        } else {
-            button = `<a href="#" id="list_button_${item.id}" class="btn btn btn-danger text-light btn-block">Remove from list</a>`;
-        }
-        console.log(button);
+        let add = `<a href="#" id="list_button_${item.id}" class="btn btn btn-primary text-light btn-block">Add</a>`;
+        let remove = `<a href="#" id="list_button_${item.id}" class="btn btn btn-danger text-light btn-block">Remove</a>`;
+        let button = isInList(item.id) ? remove : add;
+        
         $("#results_cards").append(
                `<div id="restaurant_card" name="${item.id}" class="card shadow-sm p-3 mb-3 bg-white rounded">
                     <div class="card-body">
@@ -57,12 +53,8 @@ let populateList = function(first_list) {
 *  Check if an id is in the user's list
 */
 export const isInList = function(card_id) {
-    return true;
+    return false;
 }
-
-$(document).on('change', '#list_selector', () => {
-    loadSidePanel("jamesb3", "Chapel Hill", document.getElementById('list_selector').value);
-});
 
 $(function() {
     
@@ -78,11 +70,10 @@ $(function() {
     }).then(() => {
         return yelp.search(yelp.getUrlParameter('city'), yelp.getUrlParameter('state')).then((result) => {
             RESTAURANTS = result;
-            console.log(RESTAURANTS);
-            loadSidePanel(username, yelp.toTitleCase(yelp.getUrlParameter('city')), "All", result);
+            loadSidePanel(RESTAURANTS);
+
             RESTAURANTS.forEach((item) => {
                 $('#list_button_' + item.id).click(() => {
-                    console.log(item.id);
                     handleListButton(item.id);
                 })
             })
