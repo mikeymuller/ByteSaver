@@ -19,10 +19,6 @@ export class Side_Panel {
     }
 
     getList(list_name) {
-        let restaurants = [];
-        this.data.forEach((item) => {
-            restaurants.push(item.name);
-        })
-        return restaurants;
+        return this.data;
     }
 }

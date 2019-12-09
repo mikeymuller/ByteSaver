@@ -1,6 +1,8 @@
 import { Side_Panel } from "./models/sidePanel.js";
 import { APICaller } from "./models/APICaller.js";
 
+let RESTAURANTS = [];
+
 export const testFun = function(data) {
     alert(data);
 }
@@ -43,9 +45,9 @@ export const populateList = function(first_list) {
 
     first_list.forEach((item) => {
         $("#results_cards").append(
-               `<div class="card shadow-sm p-3 mb-3 bg-white rounded">
+               `<div id="restaurant_card" name="${item.id}" class="card shadow-sm p-3 mb-3 bg-white rounded">
                     <div class="card-body">
-                        <h3 class="card-title">${item}</h3>
+                        <h3 class="card-title">${item.name}</h3>
                         <p class="card-text"></p>
                         <div class="row">
                             <a href="#" class="btn btn-sm btn-primary text-light col-sm-5">Like</a>
@@ -75,7 +77,8 @@ $(function() {
         username = results.data.user.name;
     }).then(() => {
         return yelp.search(yelp.getUrlParameter('city'), yelp.getUrlParameter('state')).then((result) => {
-            console.log(result);
+            RESTAURANTS = result;
+            console.log(RESTAURANTS);
             loadSidePanel(username, yelp.toTitleCase(yelp.getUrlParameter('city')), "All", result);
         });
     });
