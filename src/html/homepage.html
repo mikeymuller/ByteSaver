@@ -40,14 +40,109 @@
                     <input type="text" class="form-control location-input" aria-label="Sizing example input" 
                     aria-describedby="inputGroup-sizing-lg">
                 </div>
+                <div>
+                    <div class="filter-select">
+                    <label">Price</label>
+                    <br> 
+                    <select class="price">
+                            <option></option>
+                            <option>$</option>
+                            <option>$$</option>
+                            <option>$$$</option>
+                            <option>$$$$</option>
+                    </select>
+                </div>
+                <div class="filter-select">
+                    <label">Rating</label>
+                    <br> 
+                    <select class="rating">
+                            <option></option>
+                            <option>1 star</option>
+                            <option>2 stars</option>
+                            <option>3 stars</option>
+                            <option>4 stars</option>
+                            <option>5 stars</option>
+                    </select>
+                </div>
+                <div class="filter-select">
+                        <label">Radius</label>
+                        <br> 
+                        <select class="radius">
+                                <option></option>
+                                <option>1 mile</option>
+                                <option>5 miles</option>
+                                <option>10 miles</option>
+                                <option>15 miles</option>
+                                <option>20 miles</option>
+                                <option>25 miles</option>
+                        </select>
+                    </div>
+                    <div class="filter-select">
+                            <label">Cuisine</label>
+                            <br> 
+                            <select class="cuisine">
+                             <option></option>
+                            <option>American</option>
+                            <option>Asian Fusion</option>
+                            <option>Belgian</option>
+                            <option">Bistros</option>
+                            <option>Breakfast/Brunch</option>
+                            <option>Burgers</option>
+                            <option>Cafes</option>
+                            <option>Cajun/Creole</option>
+                            <option>Carribean</option>
+                            <option>Chinese</option>
+                            <option>Comfort Food</option>
+                            <option>Cuban</option>
+                            <option>Delis</option>
+                            <option>Diners</option>
+                            <option>Fast Food</option>
+                            <option>Food Court</option>
+                            <option>Diners</option>
+                            <option>French</option>
+                            <option>Gluten-Free</option>
+                            <option>Halal</option>
+                            <option>Indian</option>
+                            <option>Italian</option>
+                            <option>Diners</option>
+                            <option>Japenese</option>
+                            <option>Korean</option>
+                            <option>Kosher</option>
+                            <option>Latin American</option>
+                            <option>Malaysian</option>
+                            <option>Mediteranean</option>
+                            <option>Mexican</option>
+                            <option>Peruvian</option>
+                            <option>Pizza</option>
+                            <option>Portuguese</option>
+                            <option>Salad</option>
+                            <option>Sandwiches</option>
+                            <option>Seafood</option>
+                            <option>Southern</option>
+                            <option>Spanish</option>
+                            <option>Steakhouse</option>
+                            <option>Sushi</option>
+                            <option>Tapas</option>
+                            <option>Tex-Mex</option>
+                            <option>Thai</option>
+                            <option>Vegan</option>
+                            <option>Vegetarian</option>
+                            <option>Vietnamese</option>
+
+                            </select>
+                        </div>
+                </div>
+
+                
                 <button type="button" class="btn btn-outline-primary btn-lg location-search-button">Search</button>
             </div>
             <div class="saved-lists container">
                 <h2> Your saved lists: </h2>
+                <div class="my_lists"></div>
             </div>
         </div>
-
         <script src="../../node_modules/jquery/dist/jquery.js"></script>
+        <script src="../../node_modules/axios/dist/axios.js"></script>
         <script src="../../other_modules/jQuery_autoComplete/jquery.auto-complete.min.js"></script>
         <script src="../Javascript/homepageController.js" type="module"></script>
         <script src="../Javascript/account.js" type="module"></script>
