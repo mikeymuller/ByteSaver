@@ -1,6 +1,7 @@
 import { APICaller } from "./models/APICaller.js";
 
 let RESTAURANTS = [];
+let restaurant_ids = [];
 
 let handleListButton = function(button_id) {
 
@@ -42,7 +43,7 @@ let populateList = function(first_list, search) {
             let button = isInList(item.id) ? remove : add;
             
             $("#results_cards").append(
-                `<div id="restaurant_card" name="${item.id}" class="card shadow-sm p-3 mb-3 bg-white rounded">
+                `<div id="card_${item.id}" title="${item.id}" class="card shadow-sm p-3 mb-3 bg-white rounded">
                         <div class="card-body">
                             <h3 class="card-title">${item.name}</h3>
                             <p class="card-text"></p>
@@ -57,10 +58,41 @@ let populateList = function(first_list, search) {
     
 }
 
+
+export const loadMainPanel = function(restaurant_id) {
+    var restaurant;
+    RESTAURANTS.forEach(element => {
+        console.log(element.id)
+        console.log(restaurant_id);
+        if (element.id == restaurant_id){
+            console.log(element.id);
+            restaurant = element;
+        }
+    });
+
+    let categories = `<p>`;
+    for (let i = 0; i < restaurant.categories.length - 1; i++){
+        categories += `${restaurant.categories[i].title}, `;
+    }
+    categories += `${restaurant.categories[restaurant.categories.length-1].title}<\p>`;
+
+    $('#main_panel').html(`<h1>${restaurant.name}</h1>
+                                <figure class = "figure">
+                                    <img src=${restaurant.image_url} class="halfPage">
+                                </figure>
+    ` + categories);
+
+}
+
+$(document).on('change', '#list_selector', () => {
+    loadSidePanel("jamesb3", "Chapel Hill", document.getElementById('list_selector').value);
+});
+
 $(function() {
     
     let yelp = new APICaller();
 
+<<<<<<< HEAD
     if (yelp.getUrlParameter('type') == 'search') {
         return new Promise((resolve, reject) => {
             return yelp.search(yelp.getUrlParameter('city'), yelp.getUrlParameter('state')).then((result) => {
@@ -68,6 +100,9 @@ $(function() {
                 loadSidePanel(RESTAURANTS, true);
             }).then(() => {
                 RESTAURANTS.forEach((item) => {
+                    $('#card_' + item.id).click(() => {
+                        loadMainPanel(item.id);
+                    })
                     $('#list_button_' + item.id).click(() => {
                         handleListButton(item.id);
                     });
