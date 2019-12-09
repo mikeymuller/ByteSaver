@@ -79,7 +79,7 @@ const searchButtonHandler = function(){
      })
 
                 
-                window.location.href = `results.html?state=${stateParam}&city=${cityParam}`;
+                window.location.href = `results.html?state=${stateParam}&city=${cityParam}&type=search`;
             }
            else{
                 console.log("city not found");
