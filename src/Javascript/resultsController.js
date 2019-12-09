@@ -2,14 +2,6 @@ import { APICaller } from "./models/APICaller.js";
 
 let RESTAURANTS = [];
 
-export const testFun = function(data) {
-    alert(data);
-}
-
-export const loadSidePanel = function(data) {
-    populateList(data);
-};
-
 let handleListButton = function(button_id) {
 
     let button = document.getElementById("list_button_" + button_id);
@@ -22,6 +14,17 @@ let handleListButton = function(button_id) {
         button.innerHTML = "Add"
     }
 }
+
+/*
+*  Check if an id is in the user's list
+*/
+export const isInList = function(card_id) {
+    return false;
+}
+
+export const loadSidePanel = function(data) {
+    populateList(data);
+};
 
 let populateList = function(first_list) {
 
@@ -49,35 +52,20 @@ let populateList = function(first_list) {
     });
 }
 
-/*
-*  Check if an id is in the user's list
-*/
-export const isInList = function(card_id) {
-    return false;
-}
-
 $(function() {
     
-    let username = '';
     let yelp = new APICaller();
 
-    return new axios.get('http://localhost:3000/account/status', {
-        "headers": {
-            "Authorization": "Bearer " + localStorage.getItem('token')
-        }
-    }).then((results) => {
-        username = results.data.user.name;
-    }).then(() => {
+    return new Promise((resolve, reject) => {
         return yelp.search(yelp.getUrlParameter('city'), yelp.getUrlParameter('state')).then((result) => {
             RESTAURANTS = result;
             loadSidePanel(RESTAURANTS);
-
+        }).then(() => {
             RESTAURANTS.forEach((item) => {
                 $('#list_button_' + item.id).click(() => {
                     handleListButton(item.id);
-                })
-            })
+                });
+            });
         });
     });
 });
-
