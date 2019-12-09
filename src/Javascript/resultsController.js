@@ -1,4 +1,3 @@
-import { Side_Panel } from "./models/sidePanel.js";
 import { APICaller } from "./models/APICaller.js";
 
 let RESTAURANTS = [];
@@ -9,35 +8,13 @@ export const testFun = function(data) {
 
 export const loadSidePanel = function(user, city, list_name, data) {
    
-    let panel = new Side_Panel(user, city, data);
-    let lists = panel.getListNames();
-    let first_list = panel.getList(list_name);
-
-    if ($('#list_selector').length) {
-        $('#list_selector').remove();
-    }
-
-    $("#side_panel").prepend(
-        `<select id="list_selector" class="mb-1 custom-select custom-select-lg text-dark">
-            <option selected>${list_name}</option>`
-    );
-
-    lists.filter((item) => {
-        return item != list_name;
-    }).forEach((item) => {
-        $("#list_selector").append(
-            `<option>${item}</option>`
-        );
-    });
-    
-    $('#list_selector').append('</select>');
-    
-    populateList(first_list);
+    populateList(data);
 };
 
 let handleListButton = function(button_id) {
+
     let button = document.getElementById("list_button_" + button_id);
-    console.log(button.classList);
+
     if (button.classList.contains("btn-primary")) {
         button.classList.replace("btn-primary", "btn-danger");
         button.innerHTML = "Remove"
@@ -82,8 +59,6 @@ let populateList = function(first_list) {
 export const isInList = function(card_id) {
     return true;
 }
-
-
 
 $(document).on('change', '#list_selector', () => {
     loadSidePanel("jamesb3", "Chapel Hill", document.getElementById('list_selector').value);
