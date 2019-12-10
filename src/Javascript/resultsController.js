@@ -92,7 +92,6 @@ $(function() {
     
     let yelp = new APICaller();
 
-<<<<<<< HEAD
     if (yelp.getUrlParameter('type') == 'search') {
         return new Promise((resolve, reject) => {
             return yelp.search(yelp.getUrlParameter('city'), yelp.getUrlParameter('state')).then((result) => {
