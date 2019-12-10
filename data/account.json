@@ -15,6 +15,14 @@
         "firstName": "Mikey",
         "lastName": "Muller"
       }
+    },
+    "jamesb3": {
+      "passwordHash": "$2b$10$ewvfrnL.FzXfm/WSizFGnO6my6GSUZKMynG4g5L6z/kSOrJSxlHAW",
+      "data": {
+        "email": "jamesbury77@gmail.com",
+        "firstName": "James",
+        "lastName": "Bury"
+      }
     }
   }
 }
