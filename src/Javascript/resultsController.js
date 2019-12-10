@@ -2,6 +2,7 @@ import { APICaller } from "./models/APICaller.js";
 
 let RESTAURANTS = [];
 let restaurant_ids = [];
+let yelp = new APICaller();
 
 let handleListButton = function(button_id) {
 
@@ -88,24 +89,34 @@ $(document).on('change', '#list_selector', () => {
     loadSidePanel("jamesb3", "Chapel Hill", document.getElementById('list_selector').value);
 });
 
+export const makeCardsClickable = function() {
+    RESTAURANTS.forEach((item) => {
+        $('#card_' + item.id).click(() => {
+            loadMainPanel(item.id);
+        })
+        $('#list_button_' + item.id).click(() => {
+            handleListButton(item.id, yelp.getUrlParameter('city'));
+        });
+    });
+}
+
+export const filterRestaurants = function() {
+    let cuisine = yelp.getUrlParameter('cuisine');
+    RESTAURANTS = cuisine == "blank" ? RESTAURANTS : yelp.filter(RESTAURANTS, [cuisine]);
+}
+
 $(function() {
-    
-    let yelp = new APICaller();
 
     if (yelp.getUrlParameter('type') == 'search') {
         return new Promise((resolve, reject) => {
             return yelp.search(yelp.getUrlParameter('city'), yelp.getUrlParameter('state')).then((result) => {
                 RESTAURANTS = result;
+            }).then(() => {
+                filterRestaurants();
+            }).then(() => {
                 loadSidePanel(RESTAURANTS, true);
             }).then(() => {
-                RESTAURANTS.forEach((item) => {
-                    $('#card_' + item.id).click(() => {
-                        loadMainPanel(item.id);
-                    })
-                    $('#list_button_' + item.id).click(() => {
-                        handleListButton(item.id);
-                    });
-                });
+                makeCardsClickable();
             });
         });
     }
