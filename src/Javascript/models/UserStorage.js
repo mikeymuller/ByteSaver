@@ -1,8 +1,8 @@
 export class UserStorage {
 
-    async addToList(city, restaurant, token){
+    async addToList(city, state, restaurant, token){
         let id = restaurant.id;
-        let r = axios.post(`http://localhost:3000/user/lists/${city}/restaurants/${id}`,
+        let r = axios.post(`http://localhost:3000/user/lists/${city},${state}/restaurants/${id}`,
         {
             data: restaurant
         },
@@ -12,9 +12,22 @@ export class UserStorage {
         return;
     }
 
-    async getList(city, token){
+    async getCitysWithLists(token){
         let result = null;
-        await axios.get(`http://localhost:3000/user/lists/${city}/restaurants`,
+        await axios.get(`http://localhost:3000/user/lists/`,
+        {headers: {Authorization: 'Bearer ' + token}}, 
+        ).then( r =>{
+            result = r.data.result;
+        }).catch(error => {
+            console.log("User not found");
+        });
+    
+        return result;
+    }
+
+    async getList(city, state, token){
+        let result = null;
+        await axios.get(`http://localhost:3000/user/lists/${city},${state}/restaurants`,
         {headers: {Authorization: 'Bearer ' + token}}, 
         ).then( r =>{
             result = r.data.result;
@@ -25,10 +38,10 @@ export class UserStorage {
         return result;
     }
 
-    async getRestaurant(city, restaurantId, token){
+    async getRestaurant(city, state, restaurantId, token){
         let result = null;
         let id = restaurantId;
-        await axios.get(`http://localhost:3000/user/lists/${city}/restaurants/${id}`,
+        await axios.get(`http://localhost:3000/user/lists/${city},${state}/restaurants/${id}`,
         {headers: {Authorization: 'Bearer ' + token}}, 
         ).then( r =>{
             result = r.data.result;
@@ -39,9 +52,9 @@ export class UserStorage {
         return result;
     }
 
-    async deleteList(city, token){
+    async deleteList(city, state, token){
         let result = null;
-        await axios.delete(`http://localhost:3000/user/lists/${city}`,
+        await axios.delete(`http://localhost:3000/user/lists/${city},${state}`,
         {headers: {Authorization: 'Bearer ' + token}}, 
         ).then( r =>{
             result = r.data.result;
@@ -52,10 +65,10 @@ export class UserStorage {
         return result;
     }
 
-    async deleteRestaurant(city, restaurantId, token){
+    async deleteRestaurant(city, state, restaurantId, token){
         let result = null;
         let id = restaurantId;
-        await axios.delete(`http://localhost:3000/user/lists/${city}/restaurants/${id}`,
+        await axios.delete(`http://localhost:3000/user/lists/${city},${state}/restaurants/${id}`,
         {headers: {Authorization: 'Bearer ' + token}}, 
         ).then( r =>{
             result = r.data.result;

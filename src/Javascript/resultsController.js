@@ -4,7 +4,7 @@ import { UserStorage } from "./models/UserStorage.js";
 let RESTAURANTS = [];
 let restaurant_ids = [];
 
-let handleListButton = function(button_id, city) {
+let handleListButton = function(button_id, city, state) {
 
     let button = document.getElementById("list_button_" + button_id);
     let user = new UserStorage();
@@ -12,12 +12,12 @@ let handleListButton = function(button_id, city) {
     if (button.classList.contains("btn-primary")) {
         button.classList.replace("btn-primary", "btn-danger");
         button.innerHTML = "Remove";
-        user.addToList(city, getRestaurantObject(button_id), localStorage.getItem('token'));
+        user.addToList(city, state, getRestaurantObject(button_id), localStorage.getItem('token'));
 
     } else {
         button.classList.replace("btn-danger", "btn-primary");
         button.innerHTML = "Add";
-        user.deleteRestaurant(city, button_id, localStorage.getItem('token'));
+        user.deleteRestaurant(city, state, button_id, localStorage.getItem('token'));
     }
 }
 
@@ -108,7 +108,7 @@ $(function() {
                         loadMainPanel(item.id);
                     })
                     $('#list_button_' + item.id).click(() => {
-                        handleListButton(item.id, yelp.getUrlParameter('city'));
+                        handleListButton(item.id, yelp.getUrlParameter('city'), yelp.getUrlParameter('state'));
                     });
                 });
             });
