@@ -1,11 +1,18 @@
-const CITIES = ['Portland, OR', 'Boston, MA', 'Chapel Hill, NC'];
+let CITIES = [];
 let cityParam = undefined;
 let stateParam = undefined;
-let token = localStorage.getItem('token');
-
 
 export const setUpAutocompleter = function(){ 
-
+    console.log(localStorage.getItem('token'));
+        new axios.get(`http://localhost:3000/public/CITIES`,{
+            headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}
+        }, 
+        ).then( (result) =>{
+            CITIES = result.data.result;
+        }).catch(error => {
+            console.log("Restaurants not found");
+        });
+    
     let $locationInput = $('.location-input');
      
     $locationInput.autoComplete({
