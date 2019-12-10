@@ -1,9 +1,11 @@
+import { UserStorage } from "./models/UserStorage.js";
+
 let CITIES = [];
 let cityParam = undefined;
 let stateParam = undefined;
+let token = localStorage.getItem('token');
 
 export const setUpAutocompleter = function(){ 
-    console.log(localStorage.getItem('token'));
         new axios.get(`http://localhost:3000/public/CITIES`,{
             headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}
         }, 
@@ -56,12 +58,6 @@ const searchButtonHandler = function(){
         }
     }
 
-export const setUpPage=function(){
-    $(".location-search-button").on("click", function(){
-        searchButtonHandler();
-    });
-}
-
 const validateCity = function(input){
 
     let result = false;
@@ -78,6 +74,39 @@ const validateCity = function(input){
         }
     });
     return result;
+}
+
+const renderListTiles = function(lists){
+    let numLists = lists.length;
+    let numRows = Math.ceil(numLists / 3);
+    let divText = "<div></div>";
+
+    let $myLists = $('.my_lists');
+    for(let i = 0; i < numRows; i++){
+        let $row = $(divText).addClass("row");
+        for(let j = 0; j < 3; j++){
+            let index = i*3+j;
+            let $col = $(divText).addClass("col");
+            if(index < numLists){
+                let cityName = lists[index];
+                $col.append(cityName);
+                $col.addClass("restaurant-list");       
+            }
+            $row.append($col);
+        }
+        $myLists.append($row);
+    }
+}
+
+const setUpPage = async function(){
+    $(".location-search-button").on("click", function(){
+        searchButtonHandler();
+    });
+
+    let userStorage = new UserStorage();
+    let lists = await userStorage.getCitysWithLists(token);
+    
+    renderListTiles(lists);
 }
 
 $().ready(function() {
