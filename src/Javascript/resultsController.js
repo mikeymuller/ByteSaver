@@ -4,21 +4,25 @@ import { UserStorage } from "./models/UserStorage.js";
 let RESTAURANTS = [];
 let restaurant_ids = [];
 
-let handleListButton = function(button_id) {
+let handleListButton = function(button_id, city) {
 
     let button = document.getElementById("list_button_" + button_id);
+    let user = new UserStorage();
 
     if (button.classList.contains("btn-primary")) {
         button.classList.replace("btn-primary", "btn-danger");
-        button.innerHTML = "Remove"
+        button.innerHTML = "Remove";
+        user.addToList(city, getRestaurantObject(button_id), localStorage.getItem('token'));
+
     } else {
         button.classList.replace("btn-danger", "btn-primary");
-        button.innerHTML = "Add"
+        button.innerHTML = "Add";
+        user.deleteRestaurant(city, button_id, localStorage.getItem('token'));
     }
 }
 
 export const getRestaurantObject = function(restaurant_id) {
-    var restaurant;
+    let restaurant;
     RESTAURANTS.forEach(element => {
         if (element.id == restaurant_id){
             restaurant = element;
@@ -92,7 +96,6 @@ $(document).on('change', '#list_selector', () => {
 $(function() {
     
     let yelp = new APICaller();
-    let user = new UserStorage();
 
     if (yelp.getUrlParameter('type') == 'search') {
         return new Promise((resolve, reject) => {
@@ -105,8 +108,7 @@ $(function() {
                         loadMainPanel(item.id);
                     })
                     $('#list_button_' + item.id).click(() => {
-                        handleListButton(item.id);
-                        user.addToList(yelp.getUrlParameter('city'), getRestaurantObject(item.id), localStorage.getItem('token'))
+                        handleListButton(item.id, yelp.getUrlParameter('city'));
                     });
                 });
             });
