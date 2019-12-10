@@ -1,4 +1,5 @@
 import { APICaller } from "./models/APICaller.js";
+import { UserStorage } from "./models/UserStorage.js";
 
 let RESTAURANTS = [];
 let restaurant_ids = [];
@@ -16,6 +17,15 @@ let handleListButton = function(button_id) {
     }
 }
 
+export const getRestaurantObject = function(restaurant_id) {
+    var restaurant;
+    RESTAURANTS.forEach(element => {
+        if (element.id == restaurant_id){
+            restaurant = element;
+        }
+    });
+    return restaurant;
+}
 /*
 *  Check if an id is in the user's list
 */
@@ -58,17 +68,8 @@ let populateList = function(first_list, search) {
     
 }
 
-
 export const loadMainPanel = function(restaurant_id) {
-    var restaurant;
-    RESTAURANTS.forEach(element => {
-        console.log(element.id)
-        console.log(restaurant_id);
-        if (element.id == restaurant_id){
-            console.log(element.id);
-            restaurant = element;
-        }
-    });
+    let restaurant = getRestaurantObject(restaurant_id);
 
     let categories = `<p>`;
     for (let i = 0; i < restaurant.categories.length - 1; i++){
@@ -91,6 +92,7 @@ $(document).on('change', '#list_selector', () => {
 $(function() {
     
     let yelp = new APICaller();
+    let user = new UserStorage();
 
     if (yelp.getUrlParameter('type') == 'search') {
         return new Promise((resolve, reject) => {
@@ -104,6 +106,7 @@ $(function() {
                     })
                     $('#list_button_' + item.id).click(() => {
                         handleListButton(item.id);
+                        user.addToList(yelp.getUrlParameter('city'), getRestaurantObject(item.id), localStorage.getItem('token'))
                     });
                 });
             });
