@@ -16,7 +16,7 @@ export const setUpAutocompleter = function(){
             var choices = CITIES;
             var matches = [];
             for (let i=0; i<choices.length; i++)
-                if (~choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);
+                if (choices[i].toLowerCase().indexOf(term)) matches.push(choices[i]);
             suggest(matches);
         },
         onSelect: function(e, term, item){
@@ -63,23 +63,25 @@ const searchButtonHandler = function(){
             data:  results.data.result + 1,
         },
         {headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}}, 
-        ) 
+        )
+                  window.location.href = `results.html?state=${stateParam}&city=${cityParam}`;
+ 
          
      }).catch((err) => {
-
+        console.log(err)
         axios.post('http://localhost:3000/private/cities' + '/' + locationText, 
         {
             data:  1,
         },
         {headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}}, 
         ) 
-        .then(res => console.log(res))
-                .catch(err => console.log(err));
+        .then(res => 
+              window.location.href = `results.html?state=${stateParam}&city=${cityParam}`
+            )
+        .catch(err => console.log(err));
 
      })
 
-                
-                window.location.href = `results.html?state=${stateParam}&city=${cityParam}`;
             }
            else{
                 console.log("city not found");
@@ -109,10 +111,12 @@ async function setUpSavedLists() {
      }).catch((err) => {
         let e = document.createElement("div"); 
         e.innerHTML = "You do not have any saved lists!" 
+        e.classList.add("no-lists")
         $(".my_lists").append(e); 
      })
 
 }
+
 
 async function getListDetails(listName) {
     console.log(listName); 
@@ -136,6 +140,7 @@ export const addListDetails = function(resturants, listName) {
         let e = document.createElement("div"); 
             e.innerHTML = resturants[i]; 
             e.classList.add("resturant"); 
+            e.classList.add("col"); 
             $(".my_lists").append(e);
     }
 
@@ -176,10 +181,71 @@ const validateCity = function(input){
     return result;
 }
 
+async function loadMostPopularSearches() {
+    $(".popular-searches").append('<br>'); 
+
+    //first get request gets the objects {city: count}, second request gets the city to use as the key for the objects 
+    let searchedCities = axios.get('http://localhost:3000/private/cities/', 
+                    {headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}}, 
+      ).then((results) => {
+        let counts = results.data.result; 
+
+        let searchedCities = axios.get('http://localhost:3000/private/cities', 
+                    {headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}}, 
+        ).then((results) => {
+            
+            let cities = results.data.result; 
+
+            //put all the counts into an array aand sort them 
+           let sorted_counts = []; 
+           for(let i = 0; i < counts.length; i++) { 
+                sorted_counts[i] = cities[counts[i]];
+           } 
+           sorted_counts.sort(); 
+           
+           //get the top 3 counts from the sorted array 
+           let top3 =[]; 
+           let j = 0; 
+           for(let i = sorted_counts.length -1; i>=0; i--) {
+               top3[j] = sorted_counts[i]; 
+
+               j++; 
+               if(j == 3) {
+                   break; 
+               }
+           }
+
+           //goes throuogh the cities and if the city's count is in the top3, add it to the most popular cities
+           for(let i = counts.length - 1; i >= 0 ; i--) {
+                console.log(i)
+               if(top3.includes(cities[counts[i]])) {
+                   
+                let city = counts[i]; 
+                let e = document.createElement("div"); 
+                e.innerText = counts[i]; 
+                e.classList.add("popularcity")
+                e.addEventListener('click', function() {
+                    validateCity(counts[i]); 
+                    window.location.href = `results.html?state=${stateParam}&city=${cityParam}`;
+                })
+                $(".popular-searches").append(e); 
+                   
+               }
+
+
+           }
+     }); 
+
+})
+}
+
+
 
 $().ready(function() {
     setUpPage();
     setUpAutocompleter();
+    loadMostPopularSearches(); 
     setUpSavedLists(); 
 });
+
 
