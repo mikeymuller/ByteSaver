@@ -32,7 +32,6 @@ export const setUpAutocompleter = function(){
     });
 }
 
-
 const searchButtonHandler = function(){
         let locationText = $('.location-input').val();
         let priceFilter = document.getElementsByClassName('price')[0].value; 
@@ -45,59 +44,38 @@ const searchButtonHandler = function(){
         }
         else{
             if(validateCity(locationText)){
-    
-
-                /*Public data store - post every time there is a new location searched*/
-                new axios.post('http://localhost:3000/public/cities', 
-                {
-                    data: locationText, 
-                    type: "merge", 
-                })
-                .then(response => console.log(response))
-                .catch(error => console.log(error))
-
-
-    /* 
-    Private data store
-    Will first check if location already exists with a get request, get the count, and post the count +1. 
-    If the location doesn't exist, it will throw a 401 error and go to the catch block. Post the location with a count of 1. 
-    */
-     let searchedCities = axios.get('http://localhost:3000/private/cities' + '/' + locationText, 
-                    {headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}}, 
-      ).then((results) => {
-        axios.post('http://localhost:3000/private/cities' + '/' + locationText, 
-        {
-            data:  results.data.result + 1,
-        },
-        {headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}}, 
-        )
-                  window.location.href = `results.html?state=${stateParam}&city=${cityParam}`;
- 
-         
-     }).catch((err) => {
-        console.log(err)
-        axios.post('http://localhost:3000/private/cities' + '/' + locationText, 
-        {
-            data:  1,
-        },
-        {headers: {Authorization: 'Bearer ' + localStorage.getItem('token')}}, 
-        ) 
-        .then(res => 
-              window.location.href = `results.html?state=${stateParam}&city=${cityParam}`
-            )
-        .catch(err => console.log(err));
-
-     })
-
-                
-                window.location.href = `results.html?state=${stateParam}&city=${cityParam}&type=search`;
-            }
-           else{
-                console.log("city not found");
-            }
-        }
+                window.location.href = `results.html?state=${stateParam}&city=${cityParam}&type=search`;
+            } else {
+                console.log("city not found");
+            }
+        }
     }
 
+export const setUpPage=function(){
+    $(".location-search-button").on("click", function(){
+        searchButtonHandler();
+    });
+}
+
+const validateCity = function(input){
+
+    let result = false;
+    CITIES.forEach(city =>{
+        let splitString = city.split(",");
+        let cityName = splitString[0].toLowerCase().trim();
+        let stateName = splitString[1].toLowerCase().trim();
+        let inputName = input.split(",")[0].toLowerCase().trim();
+        if(city == input || cityName == inputName){
+            cityParam = cityName;
+            stateParam = stateName;
+            result = true;
+            return;
+        }
+    });
+    return result;
+}
+
 $().ready(function() {
+    setUpPage();
     setUpAutocompleter();
 });
