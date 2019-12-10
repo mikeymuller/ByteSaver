@@ -105,8 +105,7 @@ export const filterRestaurants = function() {
     RESTAURANTS = cuisine == "blank" ? RESTAURANTS : yelp.filter(RESTAURANTS, [cuisine]);
 }
 
-$(function() {
-
+export const buildPage = function() {
     if (yelp.getUrlParameter('type') == 'search') {
         return new Promise((resolve, reject) => {
             return yelp.search(yelp.getUrlParameter('city'), yelp.getUrlParameter('state')).then((result) => {
@@ -120,4 +119,8 @@ $(function() {
             });
         });
     }
+}
+
+$(function() {
+    buildPage();    
 });
