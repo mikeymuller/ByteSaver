@@ -34,17 +34,22 @@ export const setUpAutocompleter = function(){
 
 const searchButtonHandler = function(){
         let locationText = $('.location-input').val();
-        let priceFilter = document.getElementsByClassName('price')[0].value; 
-        let ratingFilter = document.getElementsByClassName('rating')[0].value; 
-        let radiusFilter = document.getElementsByClassName('radius')[0].value; 
-        let cuisineFilter = document.getElementsByClassName('cuisine')[0].value; 
+        let filterValues = {
+            "price": $('#price_filter').val().toLowerCase(),
+            "rating": $('#rating_filter').val().toLowerCase(),
+            "cuisine": $('#cuisine_filter').val().toLowerCase()
+        };
+
+        console.log(filterValues);
     
         if(locationText == ''){
             console.log("empty");
         }
         else{
             if(validateCity(locationText)){
-                window.location.href = `results.html?state=${stateParam}&city=${cityParam}&type=search`;
+                let url = `results.html?type=search&state=${stateParam}&city=${cityParam}&price=${filterValues.price}&rating=${filterValues.rating}&cuisine=${filterValues.cuisine}`;
+                window.location.href = url;
+
             } else {
                 console.log("city not found");
             }
