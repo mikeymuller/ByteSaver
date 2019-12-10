@@ -62,8 +62,10 @@ export class APICaller {
     filterByPrice(list, price) {
         let result = [];
         list.forEach((item) => {
-            if (this.getRestaurantPrice(item) == price) {
-                result.push(item);
+            if (item.price != null) {
+                if (this.getRestaurantPrice(item) == price) {
+                    result.push(item);
+                }
             }
         })
         return result;
@@ -72,8 +74,10 @@ export class APICaller {
     filterByRating(list, rating) {
         let result = [];
         list.forEach((item) => {
-            if (this.getRestaurantRating(item) == rating) {
-                result.push(item);
+            if (item.rating != null) {
+                if (this.getRestaurantRating(item) == rating) {
+                    result.push(item);
+                }
             }
         });
         return result;
