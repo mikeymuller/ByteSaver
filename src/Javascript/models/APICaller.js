@@ -26,13 +26,20 @@ export class APICaller {
         return res.data;
     }
 
+    filterByParameters(list, price, rating, cuisine) {
+        let cuisineResult = cuisine == "blank" ? list : this.filterByCuisine(list, [cuisine]);
+        let priceResult = price == "blank" ? cuisineResult : this.filterByPrice(cuisineResult, price);
+        let ratingResult = rating == "blank" ? priceResult : this.filterByRating(priceResult, rating);
+        return ratingResult;
+    }
+
     /**
      * Returns list of restaurants that match array of filters.
      * Filters must be in form of array.
      * @param {*} list 
      * @param {*} filters 
      */
-    filter(list, filters){
+    filterByCuisine(list, filters){
         let result = [];
         list.forEach(restaurant => {
             let resCategories = restaurant.categories;
@@ -50,6 +57,26 @@ export class APICaller {
         else{
             return result;
         }
+    }
+
+    filterByPrice(list, price) {
+        let result = [];
+        list.forEach((item) => {
+            if (this.getRestaurantPrice(item) == price) {
+                result.push(item);
+            }
+        })
+        return result;
+    }
+
+    filterByRating(list, rating) {
+        let result = [];
+        list.forEach((item) => {
+            if (this.getRestaurantRating(item) == rating) {
+                result.push(item);
+            }
+        });
+        return result;
     }
 
     getRestaurantImageUrl(restaurant){
