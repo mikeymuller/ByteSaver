@@ -62,18 +62,20 @@ const searchButtonHandler = function(){
 const validateCity = function(input){
 
     let result = false;
-    CITIES.forEach(city =>{
+    for(let i =0; i< CITIES.length; i++){
+        let city = CITIES[i];
         let splitString = city.split(",");
         let cityName = splitString[0].toLowerCase().trim();
         let stateName = splitString[1].toLowerCase().trim();
-        let inputName = input.split(",")[0].toLowerCase().trim();
-        if(city == input || cityName == inputName){
+        let inputCityName = input.split(",")[0].toLowerCase().trim();
+        let inputstateName = input.split(",")[1].toLowerCase().trim();
+        if(stateName == inputstateName && cityName == inputCityName){
             cityParam = cityName;
             stateParam = stateName;
             result = true;
-            return;
+            break;
         }
-    });
+    }
     return result;
 }
 
