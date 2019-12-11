@@ -11,6 +11,9 @@ let type = yelp.getUrlParameter('type');
 let token = localStorage.getItem('token');
 let user = new UserStorage();
 let pb = new PageBuilder();
+let price = 'blank';
+let rating = 'blank';
+let cuisine = 'blank';
 let list = {}
 user.getList(city, state, token).then((result) => {
     list = result;
@@ -66,11 +69,12 @@ let populateList = function (first_list, search) {
 
     if (search) {
         
-        $('#side_panel').append(`<nav class="navbar navbar-light bg-light">
-                                    <form class="form-inline">
-                                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                                        <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Search</button>
-                                    </form>
+        $('#side_panel').append(`<nav class="navbar navbar-light">
+                                    <div class="form-inline">
+                                        <input class="form-control mr-sm-2" placeholder="Search restaurants" id="find-restaurant">
+                                        <button class="btn btn-outline-primary my-2 my-sm-0" id="filter-search">Search</button>
+                                    </div>
+                                    ${pb.loadFilterHTML()}
                                  </nav>
                                 <div id="results_cards"></div>`);
 
@@ -81,6 +85,14 @@ let populateList = function (first_list, search) {
         console.log("show list");
     }
 }
+
+const filterButtonHandler = async function(){
+        let restaurant = $('find-restaurant').val();
+    
+        let url = `results.html?type=search&state=${state}&city=${city}&price=${price}&rating=${rating}&cuisine=${cuisine}`;
+        window.location.href = url;
+    }
+    
 
 export const getReviews = async function (alias) {
     let yelp = new APICaller();
@@ -164,7 +176,23 @@ export const buildPage = function() {
             if (RESTAURANTS != null) {
                 autoPopulate(0);
             }
-        });
+        }).then(() => {
+            $("#filtered-price p").click( function() {
+                price = $(this).text().length;
+            });
+            $("#filtered-rating p").click( function() {
+                rating = $(this).text().charAt(0);
+            });
+            $("#filtered-cuisine p").click( function() {
+                cuisine = $(this).text().toLowerCase();
+            });
+        }).then(() => {
+            $("#filter-search").on("click", function(){
+                filterButtonHandler(price, rating, cuisine);
+            });
+              
+        })
+       
     }
 }
 

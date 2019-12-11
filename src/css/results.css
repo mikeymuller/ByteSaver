@@ -63,5 +63,8 @@ body {
 .increase-margins {
     position: absolute;
     right: 950px;
+}
 
+.cuisines .form-check{
+    justify-content: safe;
 }

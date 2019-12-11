@@ -2,7 +2,7 @@ export class PageBuilder {
     
     getSearchCard(item, isInList) {
         let add = `<a href="#" id="list_button_${item.id}" class="btn btn btn-primary text-light btn-block">Add</a>`;
-        let remove = `<a href="#" id="list_button_${item.id}" class="btn btn btn-danger text-light btn-block">Remove</a>`;
+        let remove = `<a href="# "id="list_button_${item.id}" class="btn btn btn-danger text-light btn-block">Remove</a>`;
         let button = isInList ? remove : add;
         let card = "";
 
@@ -49,6 +49,52 @@ export class PageBuilder {
             }
         }
         return stars;
+    }
+
+    loadFilterHTML(){
+        let cuisines = ['American','Asian Fusion','Belgian','Bistros','Breakfast/Brunch','Burgers',  'Cafes','Cajun/Creole','Carribean','Chinese','Comfort Food',  'Cuban',
+        'Delis','Diners','Fast Food','Food Court','Diners','French','Gluten-Free','Halal','Indian','Italian','Diners','Japenese','Korean','Kosher','Latin American','Malaysian','Mediteranean',
+        'Mexican','Peruvian','Pizza','Portuguese','Salad','Sandwiches','Seafood','Southern','Spanish','Steakhouse','Sushi','Tapas','Tex-Mex','Thai','Vegan','Vegetarian','Vietnamese' ];
+
+        let cuisineDropdownOptions = '';
+        cuisines.forEach((item) => {
+            cuisineDropdownOptions += `<p class="dropdown-item" href="#">${item}</p>`
+        });
+
+        return `
+                <form class="form-inline">
+                    <div>
+                        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Price
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="filtered-price">
+                            <p class="dropdown-item">$</p>
+                            <p class="dropdown-item">$$</p>
+                            <p class="dropdown-item">$$$</p>
+                            <p class="dropdown-item">$$$$</p>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Rating
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="filtered-rating">
+                            <p class="dropdown-item" value=1 href="#">1 star</p>
+                            <p class="dropdown-item" value=2 href="#">2 stars</p>
+                            <p class="dropdown-item" value=3 href="#">3 stars</p>
+                            <p class="dropdown-item" value=4 href="#">4 stars</p>
+                            <p class="dropdown-item" value=5 href="#">5 stars</p>
+                        </div>
+                    </div>
+                    <div>
+                        <button class="btn btn-outline-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Cuisine
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="filtered-cuisine">
+                            ${cuisineDropdownOptions}
+                        </div>
+                    </div>
+          </form>`
     }
 
     getMainPanelHTML(restaurant, categories, stars, reviews, transactions) {
@@ -100,3 +146,7 @@ export class PageBuilder {
     </div>`
     }
 }
+
+$('.dropdown-menu a').click(function(){
+    $('#selected').text($(this).text());
+  });
