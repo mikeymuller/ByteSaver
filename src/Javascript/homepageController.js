@@ -82,13 +82,45 @@ const validateCity = function(input){
     return result;
 }
 
-const listHandler = function(){
+const listHandler = async function(event){
+    console.log($(event.target).text());
+    let list_name = $(event.target).text();
+    let list_parts = list_name.split(" ");
+    let stateParam = list_parts[list_parts.length-1];
+    let cityParam = '';
+    for(let i = 0; i < list_parts.length - 1; i++) {
+        cityParam += list_parts[i];
+        if (i < list_parts.length - 2) {
+            cityParam += " ";
+        }
+    }
+    console.log(stateParam);
+    console.log(cityParam);
     console.log("clicked");
+
+    let filterValues = {
+        "price": "blank",
+        "rating": "blank",
+        "cuisine": "blank"
+    };
+
+    console.log(filterValues);
+
+    console.log(cityParam + ", " + stateParam);
+    if(validateCity(cityParam + ", " + stateParam)){
+        await privateStorage.incrementCity(cityParam, stateParam, token);
+        let url = `results.html?type=list&state=${stateParam.toLocaleLowerCase()}&city=${cityParam.toLocaleLowerCase()}&price=${filterValues.price}&rating=${filterValues.rating}&cuisine=${filterValues.cuisine}`;
+        window.location.href = url;
+
+    } else {
+        console.log("city not found");
+    }
+    
 }
 
 const addListsHandler = function(){
     $(".restaurant-list").on("click", function(event){
-        listHandler();
+        listHandler(event);
     });
 }
 

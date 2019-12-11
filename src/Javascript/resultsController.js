@@ -191,8 +191,21 @@ export const buildPage = function() {
                 filterButtonHandler(price, rating, cuisine);
             });
               
-        })
-       
+        });
+    } else {
+        user.getList(city, state, token).then((result) => {
+            Object.keys(result).forEach((item) => {
+                RESTAURANTS.push(result[item]);
+            });
+        }).then(() => {
+            console.log(RESTAURANTS);
+        }).then(() => {
+            RESTAURANTS != null ? loadSidePanel(RESTAURANTS, true) : console.log("RESTAURANTS is null.");
+        }).then(() => {
+            RESTAURANTS != null ? makeCardsClickable() : console.log("RESTAURANTS is null.");
+        }).then(() => {
+            RESTAURANTS != null ? autoPopulate(0) : console.log("RESTAURANTS is null.");
+        });
     }
 }
 
