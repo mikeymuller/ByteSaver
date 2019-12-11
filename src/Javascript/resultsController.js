@@ -52,8 +52,8 @@ export const isInList = function (card_id) {
         return false;
     } else {
         let found = false;
-        Object.keys(list).forEach((item) => {
-            if (item == card_id) {
+        RESTAURANTS.forEach((item) => {
+            if (item.id == card_id) {
                 found = true;
             }
         })
