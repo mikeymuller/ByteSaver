@@ -67,7 +67,14 @@ let populateList = function (first_list, search) {
     }
 
     if (search) {
-        $('#side_panel').append('<div id="results_cards"></div>');
+        
+        $('#side_panel').append(`<nav class="navbar navbar-light bg-light">
+                                    <form class="form-inline">
+                                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                                    </form>
+                                </nav>
+                                <div id="results_cards"></div>`);
 
         first_list.forEach((item) => {
 
@@ -210,10 +217,6 @@ export const loadMainPanel = async function (restaurant_id) {
                         </div>`);
 
 }
-
-$(document).on('change', '#list_selector', () => {
-    loadSidePanel("jamesb3", "Chapel Hill", document.getElementById('list_selector').value);
-});
 
 export const makeCardsClickable = function() {
     RESTAURANTS.forEach((item) => {
