@@ -82,4 +82,32 @@ export class UserStorage {
         return result;
     }
 
+    async toggleLikeRestaurant(like, city, state, restaurantId, token){
+        let id = restaurantId;
+        let r = axios.post(`http://localhost:3000/user/lists/${city},${state}/restaurants/${id}`,
+        {
+            data: {
+                isLiked: like
+            }
+        },
+        {headers: {Authorization: 'Bearer ' + token}}, 
+        );
+
+        return;
+    }
+
+    async getRestaurantLikeStatus(city, state, restaurantId, token){
+        let result = null;
+        let id = restaurantId;
+        await axios.get(`http://localhost:3000/user/lists/${city},${state}/restaurants/${id}/isLiked`,
+        {headers: {Authorization: 'Bearer ' + token}}, 
+        ).then( r =>{
+            result = r.data.result;
+        }).catch(error => {
+            console.log("Restaurant not found");
+        });
+    
+        return result;
+    }
+
 }
