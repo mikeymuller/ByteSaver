@@ -229,6 +229,10 @@ export const filterRestaurants = function() {
     RESTAURANTS = yelp.filterByParameters(RESTAURANTS, price, rating, cuisine);
 }
 
+export const autoPopulate = function() {
+    loadMainPanel(Object.keys(list)[0]);   
+}
+
 export const buildPage = function() {
 
     if (yelp.getUrlParameter('type') == 'search') {
@@ -240,6 +244,8 @@ export const buildPage = function() {
             loadSidePanel(RESTAURANTS, true);
         }).then(() => {
             makeCardsClickable();
+        }).then(() => {
+            autoPopulate(0);
         });
     }
 }
