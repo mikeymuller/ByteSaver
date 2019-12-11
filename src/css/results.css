@@ -34,6 +34,7 @@ body {
 .info {
     margin-left: 350px;
     padding: 0px 100px;
+    margin-top: 50px;
 }
 
 .halfPage {
@@ -58,3 +59,9 @@ body {
 .checked {
     color: orange;
   }
+
+.increase-margins {
+    position: absolute;
+    right: 950px;
+
+}
