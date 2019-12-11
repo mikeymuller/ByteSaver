@@ -3,8 +3,11 @@
     padding: 5% 20% 5% 20%;
     color: rgb(63, 63, 63);
     text-align: center;
-    background-color: #BFDBF7; 
-    border-style: solid;
+    border-bottom: black;
+}
+
+body{
+    background-color: rgb(213, 215, 224);
 }
 
 .filter-select {
@@ -23,42 +26,13 @@
     background-color: #BFDBF7; 
 }
 
-body {
-    background-color: rgb(63, 63, 63); 
-    color: white
+.saved-lists{
+    background-color: rgba(2, 3, 99, 0.836);
+    color: rgb(213, 215, 224);
 }
 
-.no-lists {
-    background-color:rgb(164, 167, 196);
-    width: 500px;
-    height: 100px;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    margin-right: 100px;
-    margin-left: 210px;
-    display: inline-block; 
-    text-align: center;
-    border-style: solid;
-    border-color: rgb(0, 12, 48);
-    color:  rgb(63, 63, 63);
-    line-height: 85px;
-}
-
-.resturant {
-    width: 300px;
-    height: 200px;
-    margin-top: 50px;
-    margin-bottom: 50px;
-    margin-right: 50px;
-    margin-left: 80px;
-    display: inline-block; 
-    background-color:rgb(181, 147, 144);
-    border-style: solid;
-    border-color: rgb(0, 12, 48);
-    color: rgb(63, 63, 63);
-    text-align: center;
-    line-height: 175px;
-
+h2{
+    padding: 10px;
 }
 
 .popular-searches {
@@ -87,15 +61,15 @@ body {
 }
 
 .restaurant-list{
-    background-color: rgba(255, 255, 255, 0.904);
-    color: black;
+    background-color: rgb(213, 215, 224);;
+    color: rgb(63, 63, 63);;
     border-radius: 5%;
     text-align: center;
 }
 
 .default-list{
-    background-color: rgba(255, 255, 255, 0.904);
-    color: black;
+    background-color: rgb(213, 215, 224);;
+    color: rgb(63, 63, 63);;
     height: 100px;
     margin-bottom: 15px;
     padding: 10px;

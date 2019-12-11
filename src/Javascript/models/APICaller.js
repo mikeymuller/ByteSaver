@@ -26,7 +26,6 @@ export class APICaller {
             }).then(response => {
             res = response;
             }).catch(e => {
-            console.log(e);
             });
         if (res != null) {
             return res.data;
