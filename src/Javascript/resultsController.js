@@ -31,7 +31,14 @@ let handleListButton = function(button_id, city, state) {
     } else {
         button.classList.replace("btn-danger", "btn-primary");
         button.innerHTML = "Add";
-        user.deleteRestaurant(city, state, button_id, localStorage.getItem('token'));
+        user.deleteRestaurant(city, state, button_id, localStorage.getItem('token')).then((filler) => {
+            user.getList(city, state, token).then((result) => {
+                if (Object.keys(result).length == 0) {
+                    user.deleteList(city, state, token);
+                    console.log("deleted list");
+                }
+            })
+        });
     }
 }
 
