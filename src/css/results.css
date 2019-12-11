@@ -73,3 +73,20 @@ body {
     position : absolute;
     up: 300px;
 }
+
+.list-page {
+    display: inline-block;
+    width: 20%;
+    margin-left: 1px;
+}
+
+.list-page-remove{
+    display: inline-block;
+    margin-left: 20px;
+    width: 50%
+}
+
+
+.btn-block + .btn-block {
+    margin-top: auto;
+}

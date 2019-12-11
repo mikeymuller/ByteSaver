@@ -1,10 +1,11 @@
 export class PageBuilder {
     
     getSearchCard(item, isInList, search) {
-        let add = `<a href="#" id="list_button_${item.id}" class="btn btn btn-primary text-light btn-block">Add</a>`;
-        let remove = `<a href="# "id="list_button_${item.id}" class="btn btn btn-danger text-light btn-block">Remove</a>`;
-        let like = `<a href="#" id="like_button_${item.id}" class="btn btn btn-primary text-light btn-block">Like</a>`;
-        let dislike = `<a href="#" id="dislike_button_${item.id}" class="btn btn btn-primary text-light btn-block">Dislike</a>`;
+        let add = `<button href="#" id="list_button_${item.id}" class="btn btn btn-primary text-light btn-block list-page">Add</button>`;
+        let remove = `<button href="# "id="list_button_${item.id}" class="btn btn btn-danger text-light btn-block list-page-remove">Remove</button>`;
+        let like = `<button href="#" id="like_button_${item.id}" class="btn btn btn-primary text-light btn-block list-page like"><i class="far fa-thumbs-up"></i></button>`;
+        let unlike = `<button href="#" id="like_button_${item.id}" class="btn btn btn-primary text-light btn-block list-page dislike"><i class="fas fa-thumbs-up"></i></button>`;
+        let dislike = `<button href="#" id="dislike_button_${item.id}" class="btn btn btn-primary text-light btn-block list-page"><i class="far fa-thumbs-down"></i></button>`;
         let button = isInList ? remove : add;
         let card = "";
 
@@ -23,9 +24,9 @@ export class PageBuilder {
                     <div class="card-body">
                         <h3 class="card-title">${item.name}</h3>
                         <p class="card-text"></p>
-                        ` + button + `
-                        ` + like + `
-                        ` + dislike + `
+                        <div class="form-inline">
+                        ${like} ${dislike} ${remove}
+                        <div>
                     </div>
                 </div>`;
 
