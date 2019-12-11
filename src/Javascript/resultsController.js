@@ -1,5 +1,6 @@
 import { APICaller } from "./models/APICaller.js";
 import { UserStorage } from "./models/UserStorage.js";
+import { PageBuilder } from "./models/PageBuilder.js";
 
 let RESTAURANTS = [];
 let restaurant_ids = [];
@@ -9,6 +10,7 @@ let state = yelp.getUrlParameter('state');
 let type = yelp.getUrlParameter('type');
 let token = localStorage.getItem('token');
 let user = new UserStorage();
+let pb = new PageBuilder();
 let list = {}
 user.getList(city, state, token).then((result) => {
     list = result;
@@ -62,10 +64,6 @@ export const loadSidePanel = function (data, search) {
 
 let populateList = function (first_list, search) {
 
-    if ($('#results_cards').length) {
-        $('#results_cards').empty();
-    }
-
     if (search) {
         
         $('#side_panel').append(`<nav class="navbar navbar-light bg-light">
@@ -77,25 +75,11 @@ let populateList = function (first_list, search) {
                                 <div id="results_cards"></div>`);
 
         first_list.forEach((item) => {
-
-            let add = `<a href="#" id="list_button_${item.id}" class="btn btn btn-primary text-light btn-block">Add</a>`;
-            let remove = `<a href="#" id="list_button_${item.id}" class="btn btn btn-danger text-light btn-block">Remove</a>`;
-            let button = isInList(item.id) ? remove : add;
-
-            $("#results_cards").append(
-                `<div id="card_${item.id}" title="${item.id}" class="card shadow-sm p-3 mb-3 bg-white rounded">
-                        <div class="card-body">
-                            <h3 class="card-title">${item.name}</h3>
-                            <p class="card-text"></p>
-                            ` + button + `
-                        </div>
-                    </div>`
-            );
+            $("#results_cards").append(pb.getSearchCard(item, isInList(item.id)));
         });
     } else {
         console.log("show list");
     }
-
 }
 
 export const getReviews = async function (alias) {
@@ -105,43 +89,9 @@ export const getReviews = async function (alias) {
     let allReviews = [];
     for (let i = 0; i < 3; i++) {
         console.log(reviews);
-        allReviews.push(getReviewHTML(yelp.getReviewText(reviews[i]), yelp.getReviewRating(reviews[i]), yelp.getReviewUserName(reviews[i])));
+        allReviews.push(pb.getReviewHTML(yelp.getReviewText(reviews[i]), yelp.getReviewRating(reviews[i]), yelp.getReviewUserName(reviews[i])));
     }
     return allReviews;
-}
-
-export const getReviewHTML = function (text, rating, user) {
-    let stars = getStarHTML(rating);
-    return `<div class="card">
-	    <div class="card-body">
-	        <div class="row">
-        	    <div class="col-md-2">
-        	        <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" alt="Responsive image"/>
-        	    </div>
-        	    <div class="col-md-10">
-        	        <p>
-                        <a class="float-left"><strong>${user}</strong></a>
-                        <text class="float-right">${stars}</text>
-        	       </p>
-        	       <div class="clearfix"></div>
-        	        <p>${text}</p>
-        	    </div>
-	        </div>
-	    </div>
-	</div>`
-}
-
-export const getStarHTML = function(rating){
-    let stars='';
-    for(let i = 1; i < 6; i++){
-        if (rating > i){
-            stars += '<span class="fa fa-star checked"></span>';
-        }
-        else {
-            stars += '<span class="fa fa-star"></span>';
-        }
-    }
-    return stars;
 }
 
 export const loadMainPanel = async function (restaurant_id) {
@@ -166,56 +116,10 @@ export const loadMainPanel = async function (restaurant_id) {
         }
     }
 
-    let stars = getStarHTML(restaurant.rating);
+    let stars = pb.getStarHTML(restaurant.rating);
 
     let reviews = await getReviews(restaurant.alias);
-    $('#main_panel').html(`<div class="container">
-                            <div class="row">
-                                <div class="col-2.5">
-                                    <h1 class="display-4">
-                                        ${restaurant.name}
-                                        <p class="lead"><strong>${categories}</strong></p>
-                                    </h1>
-                                    <figure class="figure">
-                                            <img src=${restaurant.image_url} class="halfPage background-pic">
-                                        </figure>
-                                </div>
-                            </div>
-                            <div class="row">
-                            <div class="col-xs-6 col-md-2.5 lead"><strong>
-                                    <text>${restaurant.location.display_address[0]}</text>
-                                    <p>${restaurant.location.display_address[1]}</p>
-                                    <p class="lead">${restaurant.display_phone}</p></strong>
-                                </div>
-                                <div class="col-xs-6 col-md-2 lead">
-                                    <p>Price: ${restaurant.price}</p>
-                                    <p>
-                                        Delivery: ${transactions[0]}
-                                    </p>
-                                    <p>
-                                        Pick-up: ${transactions[2]}
-                                    </p>
-                                    <p>
-                                        Reservations: ${transactions[1]}
-                                    </p>
-                                </div>
-                                
-                                
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-12 col-md-2.1 lead">
-                                    <p>Rating (out of 5): ${stars}</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-xs-12 col-md-12">
-                                    ${reviews[0]}
-                                    ${reviews[1]}
-                                    ${reviews[2]}
-                                </div>
-                            </div>
-                        </div>`);
-
+    $('#main_panel').html(pb.getMainPanelHTML(restaurant, categories, stars, reviews, transactions));
 }
 
 export const makeCardsClickable = function() {
