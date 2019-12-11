@@ -181,6 +181,41 @@ const renderMostPopularCities = async function(){
     }
 }
 
+const deleteEmptyLists = async function() {
+    return new Promise( async (resolve, reject) => {
+        let userStorage = new UserStorage();
+        let lists = await userStorage.getCitysWithLists(token);
+        console.log(lists);
+
+        let listsToDelete = [];
+
+        lists.forEach(async (item) => {
+            let item_parts = item.split(",");
+            let city = item_parts[0];
+            let state = item_parts[1];
+            await userStorage.getList(city,state,token).then((result) => {
+                if (Object.keys(result).length == 0) {
+                    console.log("found empty list");
+                    listsToDelete.push({
+                        "city": city,
+                        "state": state
+                    });
+                }
+                console.log(result);
+            });
+            return new Promise((resolve, reject) => {
+                return 0;
+            });
+        });
+
+        setTimeout(() => {
+            listsToDelete.forEach((item) => {
+                userStorage.deleteList(item.city, item.state, token);
+            });
+        }, 500);
+    });
+}
+
 const setUpPage = async function(){
     $(".location-search-button").on("click", function(){
         searchButtonHandler();
@@ -188,15 +223,25 @@ const setUpPage = async function(){
 
     renderMostPopularCities();
 
-    let userStorage = new UserStorage();
-    let lists = await userStorage.getCitysWithLists(token);
-    if(lists.length != 0){
-        renderListTiles(lists);
-    }
-    else{
-        renderDefaultLists();
-    }
-    addListsHandler();
+    deleteEmptyLists().then((result) => {
+        console.log("done")
+    });
+
+    setTimeout(async() => {
+        console.log("here");
+        let userStorage = new UserStorage();
+        let lists = await userStorage.getCitysWithLists(token);
+
+        
+
+        if(lists.length != 0){
+            renderListTiles(lists);
+        }
+        else{
+            renderDefaultLists();
+        }
+        addListsHandler();
+    }, 1000);
 }
 
 $().ready(function() {
