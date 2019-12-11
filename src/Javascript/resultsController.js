@@ -4,11 +4,18 @@ import { UserStorage } from "./models/UserStorage.js";
 let RESTAURANTS = [];
 let restaurant_ids = [];
 let yelp = new APICaller();
+let city = yelp.getUrlParameter('city');
+let state = yelp.getUrlParameter('state');
+let token = localStorage.getItem('token');
+let user = new UserStorage();
+let list = {}
+user.getList(city, state, token).then((result) => {
+    list = result;
+});
 
 let handleListButton = function(button_id, city, state) {
 
     let button = document.getElementById("list_button_" + button_id);
-    let user = new UserStorage();
 
     if (button.classList.contains("btn-primary")) {
         button.classList.replace("btn-primary", "btn-danger");
@@ -35,7 +42,13 @@ export const getRestaurantObject = function (restaurant_id) {
 *  Check if an id is in the user's list
 */
 export const isInList = function (card_id) {
-    return false;
+    let found = false;
+    Object.keys(list).forEach((item) => {
+        if (item == card_id) {
+            found = true;
+        }
+    })
+    return found;
 }
 
 export const loadSidePanel = function (data, search) {
@@ -219,7 +232,7 @@ export const filterRestaurants = function() {
 export const buildPage = function() {
 
     if (yelp.getUrlParameter('type') == 'search') {
-        yelp.search(yelp.getUrlParameter('city'), yelp.getUrlParameter('state')).then((result) => {
+        yelp.search(city, state).then((result) => {
             RESTAURANTS = result;
         }).then(() => {
             filterRestaurants();

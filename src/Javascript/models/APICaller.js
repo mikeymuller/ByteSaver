@@ -14,7 +14,7 @@ export class APICaller {
     }
 
     async getReviews(alias){
-        let res = undefined;
+        let res = null;
         await axios({
             url: `http://localhost:3001/api/reviews/${alias}`,
             method: 'GET',
@@ -23,7 +23,10 @@ export class APICaller {
             }).catch(e => {
             console.log(e);
             });
-        return res.data;
+        if (res != null) {
+            return res.data;
+        }
+        return null;
     }
 
     filterByParameters(list, price, rating, cuisine) {
