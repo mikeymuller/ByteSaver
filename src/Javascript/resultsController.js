@@ -47,12 +47,20 @@ export const getRestaurantObject = function (restaurant_id) {
 /*
 *  Check if an id is in the user's list
 */
-export const isInList = function (card_id) {
+export const isInList = function (card_id, search) {
     if (list == null) {
         return false;
-    } else {
+    } else if (search) {
         let found = false;
-        RESTAURANTS.forEach((item) => {
+        Object.keys(list).forEach((item) => {
+            if (item == card_id) {
+                found = true;
+            }
+        })
+        return found;
+    } else if (!search) {
+        let found = false;
+        RESTAURANTS.forEach((item) =>{
             if (item.id == card_id) {
                 found = true;
             }
@@ -66,24 +74,20 @@ export const loadSidePanel = function (data, search) {
 };
 
 let populateList = function (first_list, search) {
+   
+    $('#side_panel').append(`<nav class="navbar navbar-light">
+                                <div class="form-inline">
+                                    <input class="form-control mr-sm-2" placeholder="Search restaurants" id="find-restaurant">
+                                    <button class="btn btn-outline-primary my-2 my-sm-0" id="filter-search">Search</button>
+                                </div>
+                                ${pb.loadFilterHTML()}
+                                </nav>
+                            <div id="results_cards"></div>`);
 
-    if (search) {
-        
-        $('#side_panel').append(`<nav class="navbar navbar-light">
-                                    <div class="form-inline">
-                                        <input class="form-control mr-sm-2" placeholder="Search restaurants" id="find-restaurant">
-                                        <button class="btn btn-outline-primary my-2 my-sm-0" id="filter-search">Search</button>
-                                    </div>
-                                    ${pb.loadFilterHTML()}
-                                 </nav>
-                                <div id="results_cards"></div>`);
-
-        first_list.forEach((item) => {
-            $("#results_cards").append(pb.getSearchCard(item, isInList(item.id)));
-        });
-    } else {
-        console.log("show list");
-    }
+    first_list.forEach((item) => {
+        $("#results_cards").append(pb.getSearchCard(item, isInList(item.id, search)));
+    });
+    
 }
 
 const filterButtonHandler = async function(){
@@ -200,7 +204,7 @@ export const buildPage = function() {
         }).then(() => {
             console.log(RESTAURANTS);
         }).then(() => {
-            RESTAURANTS != null ? loadSidePanel(RESTAURANTS, true) : console.log("RESTAURANTS is null.");
+            RESTAURANTS != null ? loadSidePanel(RESTAURANTS, false) : console.log("RESTAURANTS is null.");
         }).then(() => {
             RESTAURANTS != null ? makeCardsClickable() : console.log("RESTAURANTS is null.");
         }).then(() => {
