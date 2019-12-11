@@ -6,6 +6,7 @@ let restaurant_ids = [];
 let yelp = new APICaller();
 let city = yelp.getUrlParameter('city');
 let state = yelp.getUrlParameter('state');
+let type = yelp.getUrlParameter('type');
 let token = localStorage.getItem('token');
 let user = new UserStorage();
 let list = {}
@@ -245,11 +246,17 @@ export const buildPage = function() {
         }).then(() => {
             filterRestaurants();
         }).then(() => {
-            loadSidePanel(RESTAURANTS, true);
+            if (RESTAURANTS != null) {
+                loadSidePanel(RESTAURANTS, true);
+            }
         }).then(() => {
-            makeCardsClickable();
+            if (RESTAURANTS != null) {
+                makeCardsClickable();
+            }
         }).then(() => {
-            autoPopulate(0);
+            if (RESTAURANTS != null) {
+                autoPopulate(0);
+            }
         });
     }
 }
