@@ -35,7 +35,6 @@ app.get('/api/reviews/:id', async(req,res) => {
         }).catch(e => {
         console.log(e);
         });
-    console.log(searchResponse);
     res.send(searchResponse);
 })
 

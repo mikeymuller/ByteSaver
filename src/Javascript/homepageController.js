@@ -1,9 +1,11 @@
 import { UserStorage } from "./models/UserStorage.js";
+import { PrivateStorage } from "./models/PrivateStorage.js";
 import { parseLocation } from "./utilities/locationParser.js";
 
 let CITIES = [];
 let cityParam = undefined;
 let stateParam = undefined;
+let privateStorage = new PrivateStorage();
 let token = localStorage.getItem('token');
 
 export const setUpAutocompleter = function(){ 
@@ -35,7 +37,7 @@ export const setUpAutocompleter = function(){
     });
 }
 
-const searchButtonHandler = function(){
+const searchButtonHandler = async function(){
         let locationText = $('.location-input').val();
         let filterValues = {
             "price": $('#price_filter').val().toLowerCase(),
@@ -50,6 +52,7 @@ const searchButtonHandler = function(){
         }
         else{
             if(validateCity(locationText)){
+                await privateStorage.incrementCity(cityParam, stateParam, token);
                 let url = `results.html?type=search&state=${stateParam}&city=${cityParam}&price=${filterValues.price}&rating=${filterValues.rating}&cuisine=${filterValues.cuisine}`;
                 window.location.href = url;
 
@@ -125,10 +128,22 @@ const renderDefaultLists = function(){
     $myLists.append($row);
 }
 
+const renderMostPopularCities = async function(){
+    let cities = await privateStorage.getMostPopularCities(token);
+    let $popSearches = $(".popular-searches");
+    cities.forEach(city =>{
+        let location = parseLocation(city);
+        location = location[0] + ', ' + location[1];
+        $popSearches.append(location);
+    });
+}
+
 const setUpPage = async function(){
     $(".location-search-button").on("click", function(){
         searchButtonHandler();
     });
+
+    renderMostPopularCities();
 
     let userStorage = new UserStorage();
     let lists = await userStorage.getCitysWithLists(token);
@@ -138,7 +153,6 @@ const setUpPage = async function(){
     else{
         renderDefaultLists();
     }
-
     addListsHandler();
 }
 
