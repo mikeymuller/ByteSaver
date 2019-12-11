@@ -98,6 +98,11 @@ export class PageBuilder {
     }
 
     getMainPanelHTML(restaurant, categories, stars, reviews, transactions) {
+        let address = '';
+        restaurant.location.display_address.forEach((item) => {
+            address += `<p class="lead">${item}</p>`;
+        });
+
         return `<div class="container">
         <div class="row">
             <div class="col-2.5">
@@ -112,8 +117,7 @@ export class PageBuilder {
         </div>
         <div class="row">
         <div class="col-xs-6 col-md-2.5 lead"><strong>
-                <text>${restaurant.location.display_address[0]}</text>
-                <p>${restaurant.location.display_address[1]}</p>
+                <p class="lead decrease-margins"><strong>${address}</strong></p>
                 <p class="lead">${restaurant.display_phone}</p></strong>
             </div>
             <div class="col-xs-6 col-md-2 lead">

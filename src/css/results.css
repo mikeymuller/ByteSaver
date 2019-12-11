@@ -68,3 +68,8 @@ body {
 .cuisines .form-check{
     justify-content: safe;
 }
+
+.decrease-margins {
+    position : absolute;
+    up: 300px;
+}
