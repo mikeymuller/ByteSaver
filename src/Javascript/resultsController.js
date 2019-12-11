@@ -42,13 +42,17 @@ export const getRestaurantObject = function (restaurant_id) {
 *  Check if an id is in the user's list
 */
 export const isInList = function (card_id) {
-    let found = false;
-    Object.keys(list).forEach((item) => {
-        if (item == card_id) {
-            found = true;
-        }
-    })
-    return found;
+    if (list == null) {
+        return false;
+    } else {
+        let found = false;
+        Object.keys(list).forEach((item) => {
+            if (item == card_id) {
+                found = true;
+            }
+        })
+        return found;
+    }
 }
 
 export const loadSidePanel = function (data, search) {
@@ -230,7 +234,7 @@ export const filterRestaurants = function() {
 }
 
 export const autoPopulate = function() {
-    loadMainPanel(Object.keys(list)[0]);   
+    loadMainPanel(RESTAURANTS[0].id);   
 }
 
 export const buildPage = function() {

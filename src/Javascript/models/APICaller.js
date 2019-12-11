@@ -1,7 +1,7 @@
 export class APICaller {
 
     async search(city, state){
-        let res = undefined;
+        let res = null;
         await axios({
             url: `http://localhost:3001/api/search?city=${city}&state=${state}`,
             method: 'GET',
@@ -10,7 +10,12 @@ export class APICaller {
             }).catch(e => {
             console.log(e);
             });
-        return res.data;
+        if (res != null) {
+            return res.data;
+        } else {
+            console.log("No results found.");
+            return null;
+        }
     }
 
     async getReviews(alias){
@@ -25,8 +30,10 @@ export class APICaller {
             });
         if (res != null) {
             return res.data;
+        } else {
+            console.log("No reviews found.");
+            return null;
         }
-        return null;
     }
 
     filterByParameters(list, price, rating, cuisine) {
