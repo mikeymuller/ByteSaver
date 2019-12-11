@@ -99,7 +99,7 @@ export const makeCardsClickable = function() {
             loadMainPanel(item.id);
         })
         $('#list_button_' + item.id).click(() => {
-            handleListButton(item.id, yelp.getUrlParameter('city'));
+            handleListButton(item.id, yelp.getUrlParameter('city'), yelp.getUrlParameter('state'));
         });
     });
 }
