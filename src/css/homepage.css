@@ -1,18 +1,36 @@
 
 .location-searcher{
-    padding: 5% 20% 5% 20%;
+    padding: 2% 20% 2% 20%;
     color: rgb(63, 63, 63);
     text-align: center;
     border-bottom: black;
+}
+
+.location-search-button{
+    margin:5px;
+    background-color: rgba(2, 3, 99, 0.836);
+}
+
+.btn.btn-primary.active, 
+.btn.btn-primary:active, 
+.btn.btn-primary:active:focus,
+.btn.btn-primary:active:hover,
+.btn.btn-primary:active.hover,   
+.btn.btn-primary:hover, 
+.btn.btn-primary.focus,
+.btn.btn-primary:focus{
+    background-color: rgba(0, 2, 80, 0.932);
 }
 
 body{
     background-color: rgb(213, 215, 224);
 }
 
+
 .filter-select {
     display: inline-block; 
     color:  rgb(63, 63, 63);
+    padding: 5px;
 }
 
 .list {
@@ -36,19 +54,17 @@ h2{
 }
 
 .popular-searches {
-    text-align: left;
+    text-align: center;
 }
 
-.popularcity {
-    width: 150px;
-    height: 50px;
-    margin-left: 40px;
+.popular-location {
+    margin-left: 10px;
     margin-right: 10px;
-    background-color: rgb(63, 63, 63);
-    color: white;
+    color: rgba(2, 3, 99, 0.836);
     display: inline-block; 
     text-align: center;
-    line-height: 50px;
+    font-weight: bold;
+    line-height: 40px;
 
 }
 

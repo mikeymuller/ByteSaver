@@ -161,13 +161,24 @@ const renderDefaultLists = function(){
 }
 
 const renderMostPopularCities = async function(){
-    let cities = await privateStorage.getMostPopularCities(token);
-    let $popSearches = $(".popular-searches");
-    cities.forEach(city =>{
-        let location = parseLocation(city);
-        location = location[0] + ', ' + location[1];
-        $popSearches.append(location);
+    let cities = await privateStorage.getMostPopularCities(token)
+    .catch(err=>{
+        console.log("No cities for popular searches");
     });
+    let $popSearches = $(".popular-searches");
+    console.log(cities);
+    if(cities[0] !== undefined){
+        cities.forEach(city =>{
+            let location = parseLocation(city);
+            location = location[0] + ', ' + location[1];
+            let $popLocation = $(`<span>${location}</span>`).addClass("popular-location");
+            $popSearches.append($popLocation);
+        });
+    }
+    else{
+        let $popLocation = $(`<span>None!</span>`).addClass("popular-location");
+        $popSearches.append($popLocation);
+    }
 }
 
 const setUpPage = async function(){
