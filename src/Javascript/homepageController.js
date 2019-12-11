@@ -105,10 +105,8 @@ const listHandler = async function(event){
     };
 
     console.log(filterValues);
-
     console.log(cityParam + ", " + stateParam);
     if(validateCity(cityParam + ", " + stateParam)){
-        await privateStorage.incrementCity(cityParam, stateParam, token);
         let url = `results.html?type=list&state=${stateParam.toLocaleLowerCase()}&city=${cityParam.toLocaleLowerCase()}&price=${filterValues.price}&rating=${filterValues.rating}&cuisine=${filterValues.cuisine}`;
         window.location.href = url;
 
@@ -166,7 +164,6 @@ const renderMostPopularCities = async function(){
         console.log("No cities for popular searches");
     });
     let $popSearches = $(".popular-searches");
-    console.log(cities);
     if(cities[0] !== undefined){
         cities.forEach(city =>{
             let location = parseLocation(city);

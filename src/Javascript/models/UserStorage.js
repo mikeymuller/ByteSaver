@@ -4,7 +4,10 @@ export class UserStorage {
         let id = restaurant.id;
         let r = axios.post(`http://localhost:3000/user/lists/${city},${state}/restaurants/${id}`,
         {
-            data: restaurant
+            data: {
+                restaurant,
+                isLiked: false
+            }
         },
         {headers: {Authorization: 'Bearer ' + token}}, 
         );
@@ -41,7 +44,7 @@ export class UserStorage {
     async getRestaurant(city, state, restaurantId, token){
         let result = null;
         let id = restaurantId;
-        await axios.get(`http://localhost:3000/user/lists/${city},${state}/restaurants/${id}`,
+        await axios.get(`http://localhost:3000/user/lists/${city},${state}/restaurants/${id}/restaurant`,
         {headers: {Authorization: 'Bearer ' + token}}, 
         ).then( r =>{
             result = r.data.result;

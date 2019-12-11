@@ -14,9 +14,11 @@ let pb = new PageBuilder();
 let price = 'blank';
 let rating = 'blank';
 let cuisine = 'blank';
-let list = {}
+let list = {};
 user.getList(city, state, token).then((result) => {
     list = result;
+    console.log("LIST");
+    console.log(list);
 });
 
 let handleListButton = function(button_id, city, state) {
@@ -60,7 +62,7 @@ export const isInList = function (card_id, search) {
     } else if (search) {
         let found = false;
         Object.keys(list).forEach((item) => {
-            if (item == card_id) {
+            if (item.restaurant == card_id) {
                 found = true;
             }
         })
@@ -205,8 +207,10 @@ export const buildPage = function() {
         });
     } else {
         user.getList(city, state, token).then((result) => {
+            console.log("RESULTS");
+            console.log(result);
             Object.keys(result).forEach((item) => {
-                RESTAURANTS.push(result[item]);
+                RESTAURANTS.push(result[item].restaurant);
             });
         }).then(() => {
             console.log(RESTAURANTS);
