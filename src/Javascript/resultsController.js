@@ -85,7 +85,7 @@ let populateList = function (first_list, search) {
                             <div id="results_cards"></div>`);
 
     first_list.forEach((item) => {
-        $("#results_cards").append(pb.getSearchCard(item, isInList(item.id, search)));
+        $("#results_cards").append(pb.getSearchCard(item, isInList(item.id, search), search));
     });
     
 }

@@ -1,12 +1,15 @@
 export class PageBuilder {
     
-    getSearchCard(item, isInList) {
+    getSearchCard(item, isInList, search) {
         let add = `<a href="#" id="list_button_${item.id}" class="btn btn btn-primary text-light btn-block">Add</a>`;
         let remove = `<a href="# "id="list_button_${item.id}" class="btn btn btn-danger text-light btn-block">Remove</a>`;
+        let like = `<a href="#" id="like_button_${item.id}" class="btn btn btn-primary text-light btn-block">Like</a>`;
+        let dislike = `<a href="#" id="dislike_button_${item.id}" class="btn btn btn-primary text-light btn-block">Dislike</a>`;
         let button = isInList ? remove : add;
         let card = "";
 
-        card +=`<div id="card_${item.id}" title="${item.id}" class="card shadow-sm p-3 mb-3 bg-white rounded">
+        if (search) {
+            card +=`<div id="card_${item.id}" title="${item.id}" class="card shadow-sm p-3 mb-3 bg-white rounded">
                     <div class="card-body">
                         <h3 class="card-title">${item.name}</h3>
                         <p class="card-text"></p>
@@ -14,7 +17,21 @@ export class PageBuilder {
                     </div>
                 </div>`;
 
-        return card;
+            return card;
+        } else {
+            card +=`<div id="card_${item.id}" title="${item.id}" class="card shadow-sm p-3 mb-3 bg-white rounded">
+                    <div class="card-body">
+                        <h3 class="card-title">${item.name}</h3>
+                        <p class="card-text"></p>
+                        ` + button + `
+                        ` + like + `
+                        ` + dislike + `
+                    </div>
+                </div>`;
+
+            return card;
+        }
+        
     }
 
     getReviewHTML(text, rating, user) {
