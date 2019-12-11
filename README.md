@@ -21,3 +21,6 @@ Important: In order to await the promised resposne, you must make the function t
 
 ### Format of the returned data
 As of right now, all requests to API return an array with the first 50 yelp business objects, ranked by rating. Click [here](https://www.yelp.com/developers/documentation/v3/business_search) and scroll down to see the attribute for each restaurant object. 
+
+## Style
+1. Please make sure to `npm install --save-dev @fortawesome/fontawesome-free` to download icons.

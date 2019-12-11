@@ -44,6 +44,16 @@ let handleListButton = function(button_id, city, state) {
     }
 }
 
+let handleLikeButton = function (button_id, city, state){
+    let button = document.getElementById("like_button_" + button_id);
+    if (button.classList.contains("like")) {
+        $("like_button_" + button_id).replaceWith(`<button href="#" id="like_button_${button.id}" class="btn btn btn-primary text-light btn-block list-page like-full"><i class="fas fa-thumbs-up"></i></button>`);
+    } else {
+        button.replaceWith(`<button href="#" id="like_button_${button.id}" class="btn btn btn-primary text-light btn-block list-page like"><i class="far fa-thumbs-up"></i></button>`);
+
+    }
+}
+
 export const getRestaurantObject = function (restaurant_id) {
     let restaurant;
     RESTAURANTS.forEach(element => {
@@ -155,6 +165,10 @@ export const makeCardsClickable = function() {
         $('#list_button_' + item.id).click(() => {
             handleListButton(item.id, yelp.getUrlParameter('city'), yelp.getUrlParameter('state'));
         });
+        $('#like_button_' + item.id).click(() => {
+            handleLikeButton(item.id, yelp.getUrlParameter('city'), yelp.getUrlParameter('state'));
+        });
+
     });
 }
 
