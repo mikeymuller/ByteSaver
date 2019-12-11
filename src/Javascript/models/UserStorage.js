@@ -13,13 +13,13 @@ export class UserStorage {
     }
 
     async getCitysWithLists(token){
-        let result = null;
+        let result = [];
         await axios.get(`http://localhost:3000/user/lists/`,
         {headers: {Authorization: 'Bearer ' + token}}, 
         ).then( r =>{
             result = r.data.result;
         }).catch(error => {
-            console.log("User not found");
+            console.log("No lists");
         });
     
         return result;

@@ -78,16 +78,31 @@ body {
 
 }
 
-.restaurant-list{
-    background-color: rgba(255, 255, 255, 0.904);
-    color: black;
+.restaurant-column{
     width: 20%;
     height: 300px;
     margin: 15px;
     padding: 10px;
     padding-top: 10%;
+}
+
+.restaurant-list{
+    background-color: rgba(255, 255, 255, 0.904);
+    color: black;
     border-radius: 5%;
     text-align: center;
+}
+
+.default-list{
+    background-color: rgba(255, 255, 255, 0.904);
+    color: black;
+    height: 100px;
+    margin-bottom: 15px;
+    padding: 10px;
+    padding-top: 2%;
+    border-radius: 10px;
+    text-align: center;
     font-size: 2em;
+
 }
 

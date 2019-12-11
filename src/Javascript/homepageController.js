@@ -1,4 +1,5 @@
 import { UserStorage } from "./models/UserStorage.js";
+import { parseLocation } from "./utilities/locationParser.js";
 
 let CITIES = [];
 let cityParam = undefined;
@@ -76,6 +77,16 @@ const validateCity = function(input){
     return result;
 }
 
+const listHandler = function(){
+    console.log("clicked");
+}
+
+const addListsHandler = function(){
+    $(".restaurant-list").on("click", function(event){
+        listHandler();
+    });
+}
+
 const renderListTiles = function(lists){
     let numLists = lists.length;
     let numRows = Math.ceil(numLists / 3);
@@ -86,16 +97,30 @@ const renderListTiles = function(lists){
         let $row = $(divText).addClass("row");
         for(let j = 0; j < 3; j++){
             let index = i*3+j;
-            let $col = $(divText).addClass("col");
+            let $col = $(divText).addClass("col").addClass("restaurant-column");
             if(index < numLists){
-                let cityName = lists[index];
-                $col.append(cityName);
-                $col.addClass("restaurant-list");       
+                let location = parseLocation(lists[index]);
+                let $city = $(`<span>${location[0]}</span> <br>`).css("font-size", "2em");
+                let $state = $(`<span>${location[1]}</span>`).css("font-size", "1.5em");
+                $col.append($city);
+                $col.append($state); 
+                $col.addClass("restaurant-list");
             }
             $row.append($col);
         }
         $myLists.append($row);
     }
+}
+
+const renderDefaultLists = function(){
+    let $myLists = $('.my_lists');
+    let divText = "<div></div>";
+    let $row = $(divText).addClass("row");
+    let $col = $(divText).addClass("col");
+    $col.addClass("default-list");
+    $col.append("Search for and save restaurants to create a list!");
+    $row.append($col);
+    $myLists.append($row);
 }
 
 const setUpPage = async function(){
@@ -105,8 +130,14 @@ const setUpPage = async function(){
 
     let userStorage = new UserStorage();
     let lists = await userStorage.getCitysWithLists(token);
-    
-    renderListTiles(lists);
+    if(lists.length != 0){
+        renderListTiles(lists);
+    }
+    else{
+        renderDefaultLists();
+    }
+
+    addListsHandler();
 }
 
 $().ready(function() {
