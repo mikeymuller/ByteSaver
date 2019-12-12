@@ -82,13 +82,11 @@ export class UserStorage {
         return result;
     }
 
-    async likeRestaurant(city, state, restaurantId, token){
+    async toggleLikeRestaurant(like, city, state, restaurantId, token){
         let id = restaurantId;
-        let r = axios.post(`http://localhost:3000/user/lists/${city},${state}/restaurants/${id}`,
+        let r = axios.post(`http://localhost:3000/user/lists/${city},${state}/restaurants/${id}/isLiked`,
         {
-            data: {
-                isLiked: true
-            }
+            data: like
         },
         {headers: {Authorization: 'Bearer ' + token}}, 
         );
