@@ -54,6 +54,10 @@ export class APICaller {
     }
 
     filterByParameters(list, price, rating, cuisine) {
+        console.log (list);
+        console.log(price);
+        console.log(rating);
+        console.log(cuisine);
         let cuisineResult = cuisine == "blank" ? list : this.filterByCuisine(list, [cuisine]);
         let priceResult = price == "blank" ? cuisineResult : this.filterByPrice(cuisineResult, price);
         let ratingResult = rating == "blank" ? priceResult : this.filterByRating(priceResult, rating);

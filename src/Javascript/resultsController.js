@@ -11,9 +11,9 @@ let type = yelp.getUrlParameter('type');
 let token = localStorage.getItem('token');
 let user = new UserStorage();
 let pb = new PageBuilder();
-let price = 'blank';
-let rating = 'blank';
-let cuisine = 'blank';
+let price = "blank";
+let rating = "blank";
+let cuisine = "blank";
 let list = {};
 user.getList(city, state, token).then((result) => {
     list = result;
@@ -126,9 +126,11 @@ const filterButtonHandler = async function(){
         let restaurant = $('#find-restaurant').val();
 
         if (restaurant){
-            let res = RESTAURANTS.forEach((item)=>{
+            let res =[];
+            console.log(RESTAURANTS);
+             RESTAURANTS.forEach((item)=>{
                 if(item.name.toLowerCase().trim() === restaurant.toLowerCase().trim()){
-                    return item;
+                    res.push(item);
                 }
                 else return "none";
             })
@@ -136,20 +138,41 @@ const filterButtonHandler = async function(){
                 console.log("no hit boss");
             }
             else {
-                console.log("we hit");
+                $('#side_panel').replaceWith('<div id="side_panel" class="sidenav shadow-lg p-3 mb-5 bg-white rounded"></div>');
                 loadSidePanel(res, false);
                 makeCardsClickable();
                 autoPopulate(0);
+                addFilterProperties();
             }
         }
         else {
-            console.log("here");
+            $('#side_panel').replaceWith('<div id="side_panel" class="sidenav shadow-lg p-3 mb-5 bg-white rounded"></div>');
             let res = yelp.filterByParameters(RESTAURANTS, price, rating, cuisine);
+            console.log(res);
             loadSidePanel(res, false);
             makeCardsClickable();
             autoPopulate(0);
+            addFilterProperties();
         }
     }
+
+const addFilterProperties = function(){
+    price = 'blank';
+    rating = 'blank';
+    cuisine = 'blank';
+    $("#filtered-price p").click( function() {
+        price = $(this).text().length;
+    });
+    $("#filtered-rating p").click( function() {
+        rating = $(this).text().charAt(0);
+    });
+    $("#filtered-cuisine p").click( function() {
+        cuisine = $(this).text().toLowerCase();
+    });
+    $("#filter-search").on("click", function(){
+        filterButtonHandler(price, rating, cuisine);
+    });
+}
     
 
 export const getReviews = async function (alias) {
