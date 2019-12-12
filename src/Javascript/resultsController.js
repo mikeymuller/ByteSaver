@@ -193,7 +193,9 @@ export const filterRestaurants = function() {
 }
 
 export const autoPopulate = function() {
-    loadMainPanel(RESTAURANTS[0].id);   
+    console.log(RESTAURANTS);
+    console.log(RESTAURANTS[0]);
+    loadMainPanel(RESTAURANTS[0].id);
 }
 
 export const buildPage = function() {
@@ -204,17 +206,11 @@ export const buildPage = function() {
         }).then(() => {
             filterRestaurants();
         }).then(() => {
-            if (RESTAURANTS != null) {
-                loadSidePanel(RESTAURANTS, true);
-            }
+            RESTAURANTS.length != 0 ? loadSidePanel(RESTAURANTS, true) : console.log("RESTAURANTS is null.");
         }).then(() => {
-            if (RESTAURANTS != null) {
-                makeCardsClickable();
-            }
+            RESTAURANTS.length != 0 ? makeCardsClickable() : console.log("RESTAURANTS is null.");
         }).then(() => {
-            if (RESTAURANTS != null) {
-                autoPopulate(0);
-            }
+            RESTAURANTS.length != 0 ? autoPopulate(0) : console.log("RESTAURANTS is null.");
         }).then(() => {
             $("#filtered-price p").click( function() {
                 price = $(this).text().length;
@@ -241,11 +237,11 @@ export const buildPage = function() {
         }).then(() => {
             console.log(RESTAURANTS);
         }).then(() => {
-            RESTAURANTS != null ? loadSidePanel(RESTAURANTS, false) : console.log("RESTAURANTS is null.");
+            RESTAURANTS.length != 0 ? loadSidePanel(RESTAURANTS, false) : console.log("RESTAURANTS is null.");
         }).then(() => {
-            RESTAURANTS != null ? makeCardsClickable() : console.log("RESTAURANTS is null.");
+            RESTAURANTS.length != 0 ? makeCardsClickable() : console.log("RESTAURANTS is null.");
         }).then(() => {
-            RESTAURANTS != null ? autoPopulate(0) : console.log("RESTAURANTS is null.");
+            RESTAURANTS.lenght != 0 ? autoPopulate(0) : console.log("RESTAURANTS is null.");
         });
     }
 }
