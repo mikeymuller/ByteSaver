@@ -59,6 +59,7 @@ const searchButtonHandler = async function(){
 
     if(locationText == ''){
         console.log("empty");
+        noRestaurantsFound();
     }
     else{
         let there_is_an_issue = false;
