@@ -238,8 +238,6 @@ export const buildPage = function() {
         });
     } else {
         user.getList(city, state, token).then((result) => {
-            console.log("RESULTS");
-            console.log(result);
             Object.keys(result).forEach((item) => {
                 RESTAURANTS.push(result[item].restaurant);
             });

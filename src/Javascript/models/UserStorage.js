@@ -110,7 +110,7 @@ export class UserStorage {
 
     async getDislikeList(token){
         let result = null;
-        await axios.get(`http://localhost:3000/user/lists/dislikedRestaurants`,
+        await axios.get(`http://localhost:3000/user/lists/disliked/restaurants`,
         {headers: {Authorization: 'Bearer ' + token}}, 
         ).then( r =>{
             result = r.data.result;

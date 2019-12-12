@@ -13,8 +13,8 @@ export class APICaller {
             console.log(e);
             });
         if (res != null) {
-            this.removeDislikedRestaurants(res.data);
-            return res.data;
+            
+            return this.removeDislikedRestaurants(res.data);
         } else {
             console.log("No results found.");
             return null;
@@ -22,10 +22,18 @@ export class APICaller {
     }
 
     async removeDislikedRestaurants(restaurants){
+        let result = restaurants.slice(0);
         let userStorage = new UserStorage();
         let dislikedRestaurants = await userStorage.getDislikeList(token);
-        console.log("DISLIKED RESTAURANTS");
-        console.log(dislikedRestaurants);
+        Object.keys(dislikedRestaurants).forEach((item) => {
+            for(let i =0; i < restaurants.length; i++){
+                if(restaurants[i].id == dislikedRestaurants[item].restaurant.id ){
+                    let index = result.findIndex((element) => element.id == restaurants[i].id);
+                    result.splice(index,1);
+                }
+            }
+        });
+        return result;
     }
 
     async getReviews(alias){
@@ -94,7 +102,7 @@ export class APICaller {
         let result = [];
         list.forEach((item) => {
             if (item.rating != null) {
-                if (this.getRestaurantRating(item) == rating) {
+                if (Math.floor(this.getRestaurantRating(item)) == rating) {
                     result.push(item);
                 }
             }
