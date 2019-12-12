@@ -1,12 +1,15 @@
 import { UserStorage } from "./models/UserStorage.js";
 import { PrivateStorage } from "./models/PrivateStorage.js";
 import { parseLocation } from "./utilities/locationParser.js";
+import { APICaller } from "./models/APICaller.js";
 
 let CITIES = [];
 let cityParam = undefined;
 let stateParam = undefined;
 let privateStorage = new PrivateStorage();
 let token = localStorage.getItem('token');
+let yelp = new APICaller();
+
 
 export const setUpAutocompleter = function(){ 
         new axios.get(`http://localhost:3000/public/CITIES`,{
@@ -37,6 +40,11 @@ export const setUpAutocompleter = function(){
     });
 }
 
+export const filterRestaurants = function(RESTAURANTS, cuisine, price, rating) {
+
+    return yelp.filterByParameters(RESTAURANTS, price, rating, cuisine);
+}
+
 const searchButtonHandler = async function(){
         let locationText = $('.location-input').val();
         let filterValues = {
@@ -54,7 +62,16 @@ const searchButtonHandler = async function(){
             if(validateCity(locationText)){
                 await privateStorage.incrementCity(cityParam, stateParam, token);
                 let url = `results.html?type=search&state=${stateParam}&city=${cityParam}&price=${filterValues.price}&rating=${filterValues.rating}&cuisine=${filterValues.cuisine}`;
-                window.location.href = url;
+                let returned_restaurants = [];
+                yelp.search(cityParam,stateParam).then((result) => {
+                    returned_restaurants = filterRestaurants(result, filterValues.cuisine, filterValues.price, filterValues.rating);
+                }).then(() => {
+                    if (returned_restaurants.length == 0) {
+                        console.log('No restaurants returned');
+                    } else {
+                        window.location.href = url;
+                    }
+                });
 
             } else {
                 console.log("city not found");

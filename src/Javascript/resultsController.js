@@ -198,19 +198,24 @@ export const autoPopulate = function() {
     loadMainPanel(RESTAURANTS[0].id);
 }
 
+export const showNoResults = function() {
+    $('#side_panel').append(`<h1>NO RESULTS</h1>`);
+    window.location.href = 'homepage.html';
+}
+
 export const buildPage = function() {
 
     if (yelp.getUrlParameter('type') == 'search') {
         yelp.search(city, state).then((result) => {
             RESTAURANTS = result;
         }).then(() => {
-            filterRestaurants();
+            RESTAURANTS.length != 0 ? filterRestaurants() : console.log("RESTAURANTS is null, not filtering.");
         }).then(() => {
-            RESTAURANTS.length != 0 ? loadSidePanel(RESTAURANTS, true) : console.log("RESTAURANTS is null.");
+            RESTAURANTS.length != 0 ? loadSidePanel(RESTAURANTS, true) : console.log("RESTAURANTS is null, not loading side panel.");
         }).then(() => {
-            RESTAURANTS.length != 0 ? makeCardsClickable() : console.log("RESTAURANTS is null.");
+            RESTAURANTS.length != 0 ? makeCardsClickable() : console.log("RESTAURANTS is null, not making cards clickable.");
         }).then(() => {
-            RESTAURANTS.length != 0 ? autoPopulate(0) : console.log("RESTAURANTS is null.");
+            RESTAURANTS.length != 0 ? autoPopulate(0) : console.log("RESTAURANTS is null, not populating first restaurant.");
         }).then(() => {
             $("#filtered-price p").click( function() {
                 price = $(this).text().length;
@@ -226,6 +231,10 @@ export const buildPage = function() {
                 filterButtonHandler(price, rating, cuisine);
             });
               
+        }).then(() => {
+            if (RESTAURANTS.length == 0) {
+                showNoResults();
+            }
         });
     } else {
         user.getList(city, state, token).then((result) => {
@@ -237,11 +246,15 @@ export const buildPage = function() {
         }).then(() => {
             console.log(RESTAURANTS);
         }).then(() => {
-            RESTAURANTS.length != 0 ? loadSidePanel(RESTAURANTS, false) : console.log("RESTAURANTS is null.");
+            RESTAURANTS.length != 0 ? loadSidePanel(RESTAURANTS, false) : console.log("RESTAURANTS is null, not loading side panel.");
         }).then(() => {
-            RESTAURANTS.length != 0 ? makeCardsClickable() : console.log("RESTAURANTS is null.");
+            RESTAURANTS.length != 0 ? makeCardsClickable() : console.log("RESTAURANTS is null, not making cards clickable.");
         }).then(() => {
-            RESTAURANTS.lenght != 0 ? autoPopulate(0) : console.log("RESTAURANTS is null.");
+            RESTAURANTS.length != 0 ? autoPopulate(0) : console.log("RESTAURANTS is null, not populating first restaurant.");
+        }).then(() => {
+            if (RESTAURANTS.length == 0) {
+                showNoResults();
+            }
         });
     }
 }
