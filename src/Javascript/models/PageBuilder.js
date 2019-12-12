@@ -1,6 +1,6 @@
 export class PageBuilder {
     
-    getSearchCard(item, isInList, search) {
+    getSearchCard(item, isInList, search, isDisliked) {
         let add = `<button href="#" id="list_button_${item.id}" class="btn btn btn-primary text-light btn-block">Add</button>`;
         let remove = `<button href="# "id="list_button_${item.id}" class="btn btn btn-danger text-light btn-block list-page-remove">Remove</button>`;
         let like = `<button href="#" id="like_button_${item.id}" class="btn btn btn-primary text-light btn-block list-page empty-like"><i class="far fa-thumbs-up empty-like" id="inside_like_button_${item.id}"></i></button>`;
@@ -8,12 +8,21 @@ export class PageBuilder {
         let button = isInList ? remove : add;
         let card = "";
 
-        if (search) {
+        if (search && !isDisliked) {
             card +=`<div id="card_${item.id}" title="${item.id}" class="card shadow-sm p-3 mb-3 bg-white rounded">
                     <div class="card-body">
                         <h3 class="card-title">${item.name}</h3>
                         <p class="card-text"></p>
                         ` + button + `
+                    </div>
+                </div>`;
+
+            return card;
+        } else if (isDisliked) {
+            card +=`<div id="card_${item.id}" title="${item.id}" class="card shadow-sm p-3 mb-3 bg-white rounded">
+                    <div class="card-body">
+                        <h3 class="card-title">${item.name}</h3>
+                        <p class="card-text"></p>
                     </div>
                 </div>`;
 
