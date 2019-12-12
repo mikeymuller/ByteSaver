@@ -1,5 +1,7 @@
-export class APICaller {
+import {UserStorage} from "./UserStorage.js";
+let token = localStorage.getItem('token');
 
+export class APICaller {
     async search(city, state){
         let res = null;
         await axios({
@@ -11,11 +13,19 @@ export class APICaller {
             console.log(e);
             });
         if (res != null) {
+            this.removeDislikedRestaurants(res.data);
             return res.data;
         } else {
             console.log("No results found.");
             return null;
         }
+    }
+
+    async removeDislikedRestaurants(restaurants){
+        let userStorage = new UserStorage();
+        let dislikedRestaurants = await userStorage.getDislikeList(token);
+        console.log("DISLIKED RESTAURANTS");
+        console.log(dislikedRestaurants);
     }
 
     async getReviews(alias){
