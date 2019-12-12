@@ -1,0 +1,59 @@
+.btn-primary,
+.btn.btn-primary,
+.btn.btn-primary.active, 
+.btn.btn-primary:active, 
+.btn.btn-primary.active.focus,
+.btn.btn-primary.active:focus,
+.btn.btn-primary.active:hover,
+.btn.btn-primary:active.focus,
+.btn.btn-primary:active:focus,
+.btn.btn-primary:active:hover,
+.btn.btn-primary:hover, 
+.btn.btn-primary.focus,
+.btn.btn-primary:focus{
+    color:white;
+    background-color: rgba(0, 2, 80, 0.932);
+    border-color: rgba(0, 2, 80, 0.932);
+}
+
+.btn-outline-primary,
+.btn.btn-outline-primary,
+.btn.btn-outline-primary.hover,
+.btn.btn-outline-primary.active, 
+.btn.btn-outline-primary:active, 
+.btn.btn-outline-primary:active:focus,
+.btn.btn-outline-primary:active:hover,
+.btn.btn-outline-primary:active.hover,   
+.btn.btn-outline-primary:hover, 
+.btn.btn-outline-primary.focus,
+.btn.btn-outline-primary:focus{
+    color:rgba(0, 2, 80, 0.932);
+    border-color: rgba(0, 2, 80, 0.932);
+}
+.btn-outline-primary:hover{
+    background-color:rgba(0, 1, 80, 0.637);
+    color: white;
+}
+
+.btn-outline-primary:focus, .btn-outline-primary.focus,
+.btn-primary:focus, .btn-primary.focus{
+    box-shadow: 0 0 0 0.2rem rgba(0, 2, 80, 0.932);
+}
+
+.btn-danger,
+.btn.btn-danger,
+.btn.btn-danger.active, 
+.btn.btn-danger:active, 
+.btn.btn-danger.active.focus,
+.btn.btn-danger.active:focus,
+.btn.btn-danger.active:hover,
+.btn.btn-danger:active.focus,
+.btn.btn-danger:active:focus,
+.btn.btn-danger:active:hover,
+.btn.btn-danger:hover, 
+.btn.btn-danger.focus,
+.btn.btn-danger:focus{
+    color:white;
+    background-color: rgb(179, 5, 5);
+    border-color: rgb(179, 5, 5);
+}
