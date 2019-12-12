@@ -123,7 +123,7 @@ export class UserStorage {
 
     async addToDislikeList(restaurant, token){
         let id = restaurant.id;
-        let r = axios.post(`http://localhost:3000/user/lists/dislikedRestaurants/${id}`,
+        let r = axios.post(`http://localhost:3000/user/lists/disliked/restaurants/${id}`,
         {
             data: {
                 restaurant
@@ -137,6 +137,7 @@ export class UserStorage {
     async dislikeRestaurant(city, state, restaurantId, token){
         let id = restaurantId;
         let restaurant = await this.getRestaurant(city, state, id, token);
+        console.log(restaurant);
         let r = await this.deleteRestaurant(city, state, id, token);
         let r2 = await this.addToDislikeList(restaurant, token);
         return;

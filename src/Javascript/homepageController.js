@@ -134,7 +134,13 @@ const renderListTiles = function(lists){
             let index = i*3+j;
             let $col = $(divText).addClass("col").addClass("restaurant-column");
             if(index < numLists){
-                let location = parseLocation(lists[index]);
+                let location = null;
+                if(lists[index] != "disliked"){
+                    location = parseLocation(lists[index]);
+                }
+                else{
+                    location = ["Disliked",""]
+                }
                 let $city = $(`<span>${location[0]}</span> <br>`).css("font-size", "2em");
                 let $state = $(`<span>${location[1]}</span>`).css("font-size", "1.5em");
                 $col.append($city);
