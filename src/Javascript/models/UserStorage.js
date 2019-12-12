@@ -115,7 +115,7 @@ export class UserStorage {
         ).then( r =>{
             result = r.data.result;
         }).catch(error => {
-            console.log("City not found");
+            console.log("No dislike list");
         });
     
         return result;

@@ -25,14 +25,16 @@ export class APICaller {
         let result = restaurants.slice(0);
         let userStorage = new UserStorage();
         let dislikedRestaurants = await userStorage.getDislikeList(token);
-        Object.keys(dislikedRestaurants).forEach((item) => {
-            for(let i =0; i < restaurants.length; i++){
-                if(restaurants[i].id == dislikedRestaurants[item].restaurant.id ){
-                    let index = result.findIndex((element) => element.id == restaurants[i].id);
-                    result.splice(index,1);
+        if(dislikedRestaurants != null){
+            Object.keys(dislikedRestaurants).forEach((item) => {
+                for(let i =0; i < restaurants.length; i++){
+                    if(restaurants[i].id == dislikedRestaurants[item].restaurant.id ){
+                        let index = result.findIndex((element) => element.id == restaurants[i].id);
+                        result.splice(index,1);
+                    }
                 }
-            }
-        });
+            });
+        }
         return result;
     }
 

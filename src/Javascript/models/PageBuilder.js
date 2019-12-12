@@ -1,8 +1,8 @@
 export class PageBuilder {
     
     getSearchCard(item, isInList, search) {
-        let add = `<button href="#" id="list_button_${item.id}" class="btn btn btn-primary text-light btn-block list-page">Add</button>`;
-        let remove = `<button href="# "id="list_button_${item.id}" class="btn btn btn-danger text-light btn-block list-page-remove">Remove</button>`;
+        let add = `<button href="#" id="list_button_${item.id}" class="btn btn btn-primary text-light btn-block">Add</button>`;
+        let remove = `<button href="# "id="list_button_${item.id}" class="btn btn btn-danger text-light btn-block">Remove</button>`;
         let like = `<button href="#" id="like_button_${item.id}" class="btn btn btn-primary text-light btn-block list-page empty-like"><i class="far fa-thumbs-up empty-like" id="inside_like_button_${item.id}"></i></button>`;
         let dislike = `<button href="#" id="dislike_button_${item.id}" class="btn btn btn-primary text-light btn-block list-page dislike"><i class="far fa-thumbs-down"></i></button>`;
         let button = isInList ? remove : add;
