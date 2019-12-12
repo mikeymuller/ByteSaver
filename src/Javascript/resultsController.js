@@ -49,10 +49,11 @@ let handleLikeButton = function (button_id, city, state){
     if (button.classList.contains("empty-like")) {
         button.classList.replace('far','fas');
         button.classList.replace('empty-like', 'like');
-        user.likeRestaurant(city, state, button_id, localStorage.getItem('token'));
+        user.toggleLikeRestaurant(true, city, state, button_id, localStorage.getItem('token'));
     } else {
         button.classList.replace('fas','far');
         button.classList.replace('like', 'empty-like');
+        user.toggleLikeRestaurant(false, city, state, button_id, localStorage.getItem('token'));
     }
 }
 
