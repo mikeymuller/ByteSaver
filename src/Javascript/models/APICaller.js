@@ -94,25 +94,29 @@ export class APICaller {
 
     filterByPrice(list, price) {
         let result = [];
-        list.forEach((item) => {
-            if (item.price != null) {
-                if (this.getRestaurantPrice(item) == price) {
-                    result.push(item);
+        if (list != null) {
+            list.forEach((item) => {
+                if (item.price != null) {
+                    if (this.getRestaurantPrice(item) == price) {
+                        result.push(item);
+                    }
                 }
-            }
-        })
+            });
+        }
         return result;
     }
 
     filterByRating(list, rating) {
         let result = [];
-        list.forEach((item) => {
-            if (item.rating != null) {
-                if (Math.floor(this.getRestaurantRating(item)) == rating) {
-                    result.push(item);
+        if (list != null) {
+            list.forEach((item) => {
+                if (item.rating != null) {
+                    if (Math.floor(this.getRestaurantRating(item)) == rating) {
+                        result.push(item);
+                    }
                 }
-            }
-        });
+            });
+        }
         return result;
     }
 

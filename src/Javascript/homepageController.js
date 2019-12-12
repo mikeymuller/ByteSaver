@@ -77,7 +77,9 @@ const searchButtonHandler = async function(){
                 yelp.search(cityParam,stateParam).then((result) => {
                     returned_restaurants = filterRestaurants(result, filterValues.cuisine, filterValues.price, filterValues.rating);
                 }).then(() => {
-                    if (returned_restaurants.length == 0) {
+                    if (returned_restaurants == null) {
+                        noRestaurantsFound();
+                    } else if (returned_restaurants.length == 0) {
                         noRestaurantsFound();
                     } else {
                         window.location.href = url;
