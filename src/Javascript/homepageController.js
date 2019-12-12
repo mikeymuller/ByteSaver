@@ -68,11 +68,11 @@ const searchButtonHandler = async function(){
                 }).then(() => {
                     if (returned_restaurants.length == 0) {
                         console.log('No restaurants returned');
+                        $('#search_error_message').html(`<p style="color: red">Your search did not return any results.</p>`);
                     } else {
                         window.location.href = url;
                     }
                 });
-
             } else {
                 console.log("city not found");
             }
