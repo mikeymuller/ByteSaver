@@ -110,9 +110,22 @@ export class UserStorage {
         return result;
     }
 
-    async addToDislikeList(city, state, restaurant, token){
+    async getDislikeList(token){
+        let result = null;
+        await axios.get(`http://localhost:3000/user/lists/dislikedRestaurants`,
+        {headers: {Authorization: 'Bearer ' + token}}, 
+        ).then( r =>{
+            result = r.data.result;
+        }).catch(error => {
+            console.log("City not found");
+        });
+    
+        return result;
+    }
+
+    async addToDislikeList(restaurant, token){
         let id = restaurant.id;
-        let r = axios.post(`http://localhost:3000/user/lists/${city},${state}/dislikedRestaurants/${id}`,
+        let r = axios.post(`http://localhost:3000/user/lists/dislikedRestaurants/${id}`,
         {
             data: {
                 restaurant
@@ -127,7 +140,7 @@ export class UserStorage {
         let id = restaurantId;
         let restaurant = await this.getRestaurant(city, state, id, token);
         let r = await this.deleteRestaurant(city, state, id, token);
-        let r2 = await this.addToDislikeList(city, state, restaurant, token);
+        let r2 = await this.addToDislikeList(restaurant, token);
         return;
     }
 
