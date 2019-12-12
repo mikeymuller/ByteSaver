@@ -16,5 +16,15 @@ export class Matcher {
             return longestPrefixMatch(next, target.substr(1));
         }
     }
+
+    matchCity(list, city) {
+        let matches = [];
+        list.forEach((item) => {
+            if (item.toLowerCase().includes(city.toLowerCase())) {
+                matches.push(item);
+            }
+        });
+        return matches[0];
+    }
 }
 

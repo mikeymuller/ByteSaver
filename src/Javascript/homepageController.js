@@ -2,6 +2,7 @@ import { UserStorage } from "./models/UserStorage.js";
 import { PrivateStorage } from "./models/PrivateStorage.js";
 import { parseLocation } from "./utilities/locationParser.js";
 import { APICaller } from "./models/APICaller.js";
+import { Matcher } from "./models/Matcher.js";
 
 let CITIES = [];
 let cityParam = undefined;
@@ -9,6 +10,7 @@ let stateParam = undefined;
 let privateStorage = new PrivateStorage();
 let token = localStorage.getItem('token');
 let yelp = new APICaller();
+let matcher = new Matcher();
 
 
 export const setUpAutocompleter = function(){ 
@@ -59,24 +61,41 @@ const searchButtonHandler = async function(){
         console.log("empty");
     }
     else{
-        if(validateCity(locationText)){
-            await privateStorage.incrementCity(cityParam, stateParam, token);
-            let url = `results.html?type=search&state=${stateParam}&city=${cityParam}&price=${filterValues.price}&rating=${filterValues.rating}&cuisine=${filterValues.cuisine}`;
-            let returned_restaurants = [];
-            yelp.search(cityParam,stateParam).then((result) => {
-                returned_restaurants = filterRestaurants(result, filterValues.cuisine, filterValues.price, filterValues.rating);
-            }).then(() => {
-                if (returned_restaurants.length == 0) {
-                    console.log('No restaurants returned');
-                    $('#search_error_message').html(`<p style="color: red">Your search did not return any results.</p>`);
-                } else {
-                    window.location.href = url;
-                }
-            });
-        } else {
-            console.log("city not found");
+        let there_is_an_issue = false;
+        if (!locationText.includes(",")) {
+            locationText = matcher.matchCity(CITIES, locationText);
+            if (typeof locationText === 'undefined') {
+                there_is_an_issue = true;
+            }
+            console.log(locationText);
         }
+        if (!there_is_an_issue) {
+            if(validateCity(locationText)){
+                await privateStorage.incrementCity(cityParam, stateParam, token);
+                let url = `results.html?type=search&state=${stateParam}&city=${cityParam}&price=${filterValues.price}&rating=${filterValues.rating}&cuisine=${filterValues.cuisine}`;
+                let returned_restaurants = [];
+                yelp.search(cityParam,stateParam).then((result) => {
+                    returned_restaurants = filterRestaurants(result, filterValues.cuisine, filterValues.price, filterValues.rating);
+                }).then(() => {
+                    if (returned_restaurants.length == 0) {
+                        noRestaurantsFound();
+                    } else {
+                        window.location.href = url;
+                    }
+                });
+            } else {
+                noRestaurantsFound();
+            }
+        } else {
+            noRestaurantsFound();
+        }
+        
     }
+}
+
+const noRestaurantsFound = function() {
+    console.log('No restaurants returned');
+    $('#search_error_message').html(`<p style="color: red">Your search did not return any results.</p>`);
 }
 
 const validateCity = function(input){
@@ -153,7 +172,11 @@ const renderListTiles = function(lists){
             if(index < numLists){
                 let location = null;
                 if(lists[index] != "disliked"){
-                    location = parseLocation(lists[index]);
+                    if (!lists[index].includes(",")) {
+                        location = matcher.matchCity(lists[index]);
+                    } else {
+                        location = parseLocation(lists[index]);
+                    }
                 }
                 else{
                     location = ["Disliked",""]

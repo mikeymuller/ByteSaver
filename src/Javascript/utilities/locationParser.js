@@ -1,3 +1,5 @@
+import { Matcher } from "../models/Matcher.js";
+
 export const parseLocation = function(location){
     let splitLocation = location.split(",");
     let city = splitLocation[0];
