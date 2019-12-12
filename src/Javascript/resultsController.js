@@ -45,13 +45,20 @@ let handleListButton = function(button_id, city, state) {
 }
 
 let handleLikeButton = function (button_id, city, state){
+    console.log("herre");
     let button = document.getElementById("like_button_" + button_id);
-    if (button.classList.contains("like")) {
-        $("like_button_" + button_id).replaceWith(`<button href="#" id="like_button_${button.id}" class="btn btn btn-primary text-light btn-block list-page like-full"><i class="fas fa-thumbs-up"></i></button>`);
+    if (button.classList.contains("empty-like")) {
+        $("#like_button_" + button_id).replaceWith(`<button href="#" id="like_button_${button.id}" class="btn btn btn-primary text-light btn-block list-page full-like"><i class="fas fa-thumbs-up"></i></button>`);
+        user.toggleLikeRestaurant(true, city, state, button_id, localStorage.getItem('token'));
     } else {
-        button.replaceWith(`<button href="#" id="like_button_${button.id}" class="btn btn btn-primary text-light btn-block list-page like"><i class="far fa-thumbs-up"></i></button>`);
-
+        console.log(button);
+        $("#like_button_" + button_id).replaceWith(`<button href="#" id="like_button_${button.id}" class="btn btn btn-primary text-light btn-block list-page empty-like"><i class="far fa-thumbs-up"></i></button>`);
     }
+}
+
+let handleDislikeButton = function (button_id, city, state){
+    let button = document.getElementById("dislike_button_" + button_id);
+    
 }
 
 export const getRestaurantObject = function (restaurant_id) {
@@ -167,6 +174,9 @@ export const makeCardsClickable = function() {
         });
         $('#like_button_' + item.id).click(() => {
             handleLikeButton(item.id, yelp.getUrlParameter('city'), yelp.getUrlParameter('state'));
+        });
+        $('#dislike_button_' + item.id).click(() => {
+            handleDislikeButton(item.id, yelp.getUrlParameter('city'), yelp.getUrlParameter('state'));
         });
 
     });
