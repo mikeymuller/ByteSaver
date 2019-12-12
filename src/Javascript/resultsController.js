@@ -26,18 +26,21 @@ let handleListButton = function(button_id, city, state) {
     let button = document.getElementById("list_button_" + button_id);
 
     if (button.classList.contains("btn-primary")) {
+        button.replaceWith('');
         button.classList.replace("btn-primary", "btn-danger");
         button.innerHTML = "Remove";
         user.addToList(city, state, getRestaurantObject(button_id), localStorage.getItem('token'));
 
     } else {
-        button.classList.replace("btn-danger", "btn-primary");
-        button.innerHTML = "Add";
+        let card = document.getElementById('card_'+button_id);
+        card.replaceWith('');
         user.deleteRestaurant(city, state, button_id, localStorage.getItem('token')).then((filler) => {
             user.getList(city, state, token).then((result) => {
                 if (Object.keys(result).length == 0) {
-                    user.deleteList(city, state, token);
-                    console.log("deleted list");
+                    user.deleteList(city, state, token).then(() => {
+                        console.log("deleted list");
+                        window.location.href = "homepage.html";
+                    });
                 }
             })
         });
@@ -60,7 +63,16 @@ let handleLikeButton = function (button_id, city, state){
 let handleDislikeButton = function (button_id, city, state){
     let card = document.getElementById('card_'+button_id);
     card.replaceWith('');
-    user.dislikeRestaurant(city, state, button_id, localStorage.getItem('token'));
+    user.dislikeRestaurant(city, state, button_id, localStorage.getItem('token')).then((filler) => {
+        user.getList(city, state, token).then((result) => {
+            if (Object.keys(result).length == 0) {
+                user.deleteList(city, state, token).then(() => {
+                    console.log("deleted list");
+                    window.location.href = "homepage.html";
+                });
+            }
+        })
+    });
 }
 
 export const getRestaurantObject = function (restaurant_id) {
