@@ -102,7 +102,10 @@ export const loadSidePanel = function (data, search) {
 };
 
 let populateList = function (first_list, search) {
-   
+   if (search){
+    $('#side_panel').append(`<div id="results_cards"></div>`);
+    }
+    else {
     $('#side_panel').append(`<nav class="navbar navbar-light">
                                 <div class="form-inline">
                                     <input class="form-control mr-sm-2" placeholder="Search restaurants" id="find-restaurant">
@@ -111,7 +114,7 @@ let populateList = function (first_list, search) {
                                 ${pb.loadFilterHTML()}
                                 </nav>
                             <div id="results_cards"></div>`);
-
+    }
     first_list.forEach((item) => {
         $("#results_cards").append(pb.getSearchCard(item, isInList(item.id, search), search));
     });
@@ -119,10 +122,33 @@ let populateList = function (first_list, search) {
 }
 
 const filterButtonHandler = async function(){
-        let restaurant = $('find-restaurant').val();
-    
-        let url = `results.html?type=search&state=${state}&city=${city}&price=${price}&rating=${rating}&cuisine=${cuisine}`;
-        window.location.href = url;
+        console.log("herre");
+        let restaurant = $('#find-restaurant').val();
+
+        if (restaurant){
+            let res = RESTAURANTS.forEach((item)=>{
+                if(item.name.toLowerCase().trim() === restaurant.toLowerCase().trim()){
+                    return item;
+                }
+                else return "none";
+            })
+            if (res === "none"){
+                console.log("no hit boss");
+            }
+            else {
+                console.log("we hit");
+                loadSidePanel(res, false);
+                makeCardsClickable();
+                autoPopulate(0);
+            }
+        }
+        else {
+            console.log("here");
+            let res = yelp.filterByParameters(RESTAURANTS, price, rating, cuisine);
+            loadSidePanel(res, false);
+            makeCardsClickable();
+            autoPopulate(0);
+        }
     }
     
 
@@ -215,25 +241,8 @@ export const buildPage = function() {
         }).then(() => {
             RESTAURANTS.length != 0 ? makeCardsClickable() : console.log("RESTAURANTS is null, not making cards clickable.");
         }).then(() => {
-            RESTAURANTS.length != 0 ? autoPopulate(0) : console.log("RESTAURANTS is null, not populating first restaurant.");
-        }).then(() => {
-            $("#filtered-price p").click( function() {
-                price = $(this).text().length;
-            });
-            $("#filtered-rating p").click( function() {
-                rating = $(this).text().charAt(0);
-            });
-            $("#filtered-cuisine p").click( function() {
-                cuisine = $(this).text().toLowerCase();
-            });
-        }).then(() => {
-            $("#filter-search").on("click", function(){
-                filterButtonHandler(price, rating, cuisine);
-            });
-              
-        }).then(() => {
-            if (RESTAURANTS.length == 0) {
-                showNoResults();
+            if (RESTAURANTS != null) {
+                autoPopulate(0);
             }
         });
     } else {
@@ -248,11 +257,21 @@ export const buildPage = function() {
         }).then(() => {
             RESTAURANTS.length != 0 ? makeCardsClickable() : console.log("RESTAURANTS is null, not making cards clickable.");
         }).then(() => {
-            RESTAURANTS.length != 0 ? autoPopulate(0) : console.log("RESTAURANTS is null, not populating first restaurant.");
+            RESTAURANTS != null ? autoPopulate(0) : console.log("RESTAURANTS is null.");
         }).then(() => {
-            if (RESTAURANTS.length == 0) {
-                showNoResults();
-            }
+            $("#filtered-price p").click( function() {
+                price = $(this).text().length;
+            });
+            $("#filtered-rating p").click( function() {
+                rating = $(this).text().charAt(0);
+            });
+            $("#filtered-cuisine p").click( function() {
+                cuisine = $(this).text().toLowerCase();
+            });
+        }).then(() => {
+            $("#filter-search").on("click", function(){
+                filterButtonHandler(price, rating, cuisine);
+            });
         });
     }
 }
