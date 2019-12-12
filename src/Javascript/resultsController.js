@@ -15,6 +15,7 @@ let price = "blank";
 let rating = "blank";
 let cuisine = "blank";
 let list = {};
+let value;
 user.getList(city, state, token).then((result) => {
     list = result;
     console.log("LIST");
@@ -28,7 +29,7 @@ let handleListButton = function(button_id, city, state) {
     if (button.classList.contains("btn-primary")) {
         button.replaceWith('');
         button.classList.replace("btn-primary", "btn-danger");
-        button.innerHTML = "Remove";
+        button.innerHTML = "Remove from list";
         user.addToList(city, state, getRestaurantObject(button_id), localStorage.getItem('token'));
 
     } else {
@@ -48,6 +49,7 @@ let handleListButton = function(button_id, city, state) {
 }
 
 let handleLikeButton = function (button_id, city, state){
+    console.log(button_id);
     let button = document.getElementById("inside_like_button_" + button_id);
     if (button.classList.contains("empty-like")) {
         button.classList.replace('far','fas');
@@ -93,10 +95,11 @@ export const isInList = function (card_id, search) {
     } else if (search) {
         let found = false;
         Object.keys(list).forEach((item) => {
-            if (item.restaurant == card_id) {
+            if (item == card_id) {
                 found = true;
             }
         })
+        console.log(found);
         return found;
     } else if (!search) {
         let found = false;
@@ -128,13 +131,32 @@ let populateList = function (first_list, search, dislike) {
                             <div id="results_cards"></div>`);
     }
     first_list.forEach((item) => {
-        $("#results_cards").append(pb.getSearchCard(item, isInList(item.id, search), search, dislike));
+        $("#results_cards").append(pb.getSearchCard(item, isInList(item.id, search), search, dislike, false));
     });
     
 }
 
+const isLiked = async function (item, search){
+    if (list == null) {
+        return false;
+    } else if (!search) {
+        let value;
+        console.log(item);
+        Object.keys(list).forEach(async (element) => {
+            if (element == item.id) {
+                await user.getRestaurantLikeStatus(city, state, item.id, localStorage.getItem('token')).then((result)=>{
+                    $("#results_cards").append(pb.getSearchCard(item, isInList(item.id, search), search, result, dislike, false));
+                });
+            }
+        });
+        console.log(value);
+        return value;
+    } else if (search) {
+        return false;
+    }
+}
+
 const filterButtonHandler = async function(){
-        console.log("herre");
         let restaurant = $('#find-restaurant').val();
 
         if (restaurant){
@@ -147,7 +169,6 @@ const filterButtonHandler = async function(){
                 else return "none";
             })
             if (res === "none"){
-                console.log("no hit boss");
             }
             else {
                 $('#side_panel').replaceWith('<div id="side_panel" class="sidenav shadow-lg p-3 mb-5 bg-white rounded"></div>');

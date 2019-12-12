@@ -1,12 +1,15 @@
 import {APICaller} from './APICaller.js';
 export class PageBuilder {
     
-    getSearchCard(item, isInList, search, isDisliked) {
-        let add = `<button href="#" id="list_button_${item.id}" class="btn btn btn-primary text-light btn-block">Add</button>`;
+    getSearchCard(item, isInList, search, isDisliked, isLiked) {
+        let add = `<button href="#" id="list_button_${item.id}" class="btn btn btn-primary text-light btn-block">Add to list</button>`;
         let remove = `<button href="# "id="list_button_${item.id}" class="btn btn btn-danger text-light btn-block list-page-remove">Remove</button>`;
-        let like = `<button href="#" id="like_button_${item.id}" class="btn btn btn-primary text-light btn-block list-page empty-like"><i class="far fa-thumbs-up empty-like" id="inside_like_button_${item.id}"></i></button>`;
+        let removeList = `<button href="# "id="list_button_${item.id}" class="btn btn btn-danger text-light btn-block">Remove from list</button>`;
+        let regLike = `<button href="#" id="like_button_${item.id}" class="btn btn btn-primary text-light btn-block list-page empty-like"><i class="far fa-thumbs-up empty-like" id="inside_like_button_${item.id}"></i></button>`;
+        let fullLike = `<button href="#" id="like_button_${item.id}" class="btn btn btn-primary text-light btn-block list-page like"><i class="fas fa-thumbs-up empty-like" id="inside_like_button_${item.id}"></i></button>`;
         let dislike = `<button href="#" id="dislike_button_${item.id}" class="btn btn btn-primary text-light btn-block list-page dislike"><i class="far fa-thumbs-down"></i></button>`;
-        let button = isInList ? remove : add;
+        let button = isInList ? removeList : add;
+        let thumbsButton = isLiked ? fullLike : regLike;
         let card = "";
 
         if (search && !isDisliked) {
@@ -34,7 +37,7 @@ export class PageBuilder {
                         <h3 class="card-title">${item.name}</h3>
                         <p class="card-text"></p>
                         <div class="form-inline">
-                        ${like} ${dislike} ${remove}
+                        ${thumbsButton} ${dislike} ${remove}
                         <div>
                     </div>
                 </div>`;
