@@ -82,12 +82,12 @@ export class UserStorage {
         return result;
     }
 
-    async toggleLikeRestaurant(like, city, state, restaurantId, token){
+    async likeRestaurant(city, state, restaurantId, token){
         let id = restaurantId;
         let r = axios.post(`http://localhost:3000/user/lists/${city},${state}/restaurants/${id}`,
         {
             data: {
-                isLiked: like
+                isLiked: true
             }
         },
         {headers: {Authorization: 'Bearer ' + token}}, 
@@ -108,6 +108,27 @@ export class UserStorage {
         });
     
         return result;
+    }
+
+    async addToDislikeList(city, state, restaurant, token){
+        let id = restaurant.id;
+        let r = axios.post(`http://localhost:3000/user/lists/${city},${state}/dislikedRestaurants/${id}`,
+        {
+            data: {
+                restaurant
+            }
+        },
+        {headers: {Authorization: 'Bearer ' + token}}, 
+        );
+        return;
+    }
+
+    async dislikeRestaurant(city, state, restaurantId, token){
+        let id = restaurantId;
+        let restaurant = await this.getRestaurant(city, state, id, token);
+        let r = await this.deleteRestaurant(city, state, id, token);
+        let r2 = await this.addToDislikeList(city, state, restaurant, token);
+        return;
     }
 
 }
