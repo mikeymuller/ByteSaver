@@ -1,2 +1,147 @@
 {
+  "besttaever": {
+    "lists": {
+      "disliked": {
+        "restaurants": {
+          "YAXz7cwaq3HArq3mHhGOhw": {
+            "restaurant": {
+              "id": "YAXz7cwaq3HArq3mHhGOhw",
+              "alias": "als-burger-shack-chapel-hill",
+              "name": "Al's Burger Shack",
+              "image_url": "https://s3-media3.fl.yelpcdn.com/bphoto/ggIUPo985Y2Lc0sjjMqYsg/o.jpg",
+              "is_closed": false,
+              "url": "https://www.yelp.com/biz/als-burger-shack-chapel-hill?adjust_creative=7lsGRTQojsGweHU6xxdrTg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=7lsGRTQojsGweHU6xxdrTg",
+              "review_count": 552,
+              "categories": [
+                {
+                  "alias": "burgers",
+                  "title": "Burgers"
+                },
+                {
+                  "alias": "hotdog",
+                  "title": "Hot Dogs"
+                }
+              ],
+              "rating": 4.5,
+              "coordinates": {
+                "latitude": 35.910204,
+                "longitude": -79.0641799
+              },
+              "transactions": [
+                "delivery"
+              ],
+              "price": "$",
+              "location": {
+                "address1": "516 W Franklin St",
+                "address2": "",
+                "address3": "",
+                "city": "Chapel Hill",
+                "zip_code": "27516",
+                "country": "US",
+                "state": "NC",
+                "display_address": [
+                  "516 W Franklin St",
+                  "Chapel Hill, NC 27516"
+                ]
+              },
+              "phone": "+19199047659",
+              "display_phone": "(919) 904-7659",
+              "distance": 1860.9069335519189
+            }
+          },
+          "YJyUAaQ18Daxq8x_KuXjgw": {
+            "restaurant": {
+              "id": "YJyUAaQ18Daxq8x_KuXjgw",
+              "alias": "saint-jacques-raleigh",
+              "name": "Saint Jacques",
+              "image_url": "https://s3-media4.fl.yelpcdn.com/bphoto/Ct5ci-wBO2xj5HmJGHJTYw/o.jpg",
+              "is_closed": false,
+              "url": "https://www.yelp.com/biz/saint-jacques-raleigh?adjust_creative=7lsGRTQojsGweHU6xxdrTg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=7lsGRTQojsGweHU6xxdrTg",
+              "review_count": 232,
+              "categories": [
+                {
+                  "alias": "french",
+                  "title": "French"
+                },
+                {
+                  "alias": "wine_bars",
+                  "title": "Wine Bars"
+                }
+              ],
+              "rating": 4.5,
+              "coordinates": {
+                "latitude": 35.866096,
+                "longitude": -78.618364
+              },
+              "transactions": [],
+              "price": "$$$",
+              "location": {
+                "address1": "6112 Falls Of Neuse Rd",
+                "address2": "",
+                "address3": "",
+                "city": "Raleigh",
+                "zip_code": "27609",
+                "country": "US",
+                "state": "NC",
+                "display_address": [
+                  "6112 Falls Of Neuse Rd",
+                  "Raleigh, NC 27609"
+                ]
+              },
+              "phone": "+19198622770",
+              "display_phone": "(919) 862-2770",
+              "distance": 5609.314270296579
+            }
+          }
+        }
+      },
+      "raleigh,nc": {
+        "restaurants": {
+          "E0G1luZa9aZzjJP\\-kc33OQ": {
+            "restaurant": {
+              "id": "E0G1luZa9aZzjJP-kc33OQ",
+              "alias": "stanbury-raleigh",
+              "name": "Stanbury",
+              "image_url": "https://s3-media2.fl.yelpcdn.com/bphoto/9zs9YWXO0phK23mUh1EgJQ/o.jpg",
+              "is_closed": false,
+              "url": "https://www.yelp.com/biz/stanbury-raleigh?adjust_creative=7lsGRTQojsGweHU6xxdrTg&utm_campaign=yelp_api_v3&utm_medium=api_v3_business_search&utm_source=7lsGRTQojsGweHU6xxdrTg",
+              "review_count": 315,
+              "categories": [
+                {
+                  "alias": "newamerican",
+                  "title": "American (New)"
+                }
+              ],
+              "rating": 4.5,
+              "coordinates": {
+                "latitude": 35.7931604,
+                "longitude": -78.6355143
+              },
+              "transactions": [
+                "restaurant_reservation"
+              ],
+              "price": "$$$",
+              "location": {
+                "address1": "938 N Blount St",
+                "address2": null,
+                "address3": "",
+                "city": "Raleigh",
+                "zip_code": "27604",
+                "country": "US",
+                "state": "NC",
+                "display_address": [
+                  "938 N Blount St",
+                  "Raleigh, NC 27604"
+                ]
+              },
+              "phone": "+19199774321",
+              "display_phone": "(919) 977-4321",
+              "distance": 3596.845774866599
+            },
+            "isLiked": true
+          }
+        }
+      }
+    }
+  }
 }

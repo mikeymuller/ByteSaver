@@ -23,6 +23,22 @@
         "firstName": "James",
         "lastName": "Bury"
       }
+    },
+    "bestta": {
+      "passwordHash": "$2b$10$YkmVB8Z8Vk40nL1YEclfROxHXnLLKWX3ZjdXyaeOF0B5wOLkc44Xq",
+      "data": {
+        "email": "onsmith@live.unc.edu",
+        "firstName": "Aaron",
+        "lastName": "Smith"
+      }
+    },
+    "besttaever": {
+      "passwordHash": "$2b$10$Mr2AjXENhnX3q3QfdBxNUuysGQ2sjhhU5R8lOawa/kUf6MaGFpB.q",
+      "data": {
+        "email": "test@live.unc.edu",
+        "firstName": "Aaron",
+        "lastName": "Smith"
+      }
     }
   }
 }
