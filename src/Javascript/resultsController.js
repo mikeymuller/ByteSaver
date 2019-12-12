@@ -45,20 +45,21 @@ let handleListButton = function(button_id, city, state) {
 }
 
 let handleLikeButton = function (button_id, city, state){
-    console.log("herre");
-    let button = document.getElementById("like_button_" + button_id);
+    let button = document.getElementById("inside_like_button_" + button_id);
     if (button.classList.contains("empty-like")) {
-        $("#like_button_" + button_id).replaceWith(`<button href="#" id="like_button_${button.id}" class="btn btn btn-primary text-light btn-block list-page full-like"><i class="fas fa-thumbs-up"></i></button>`);
-        user.toggleLikeRestaurant(true, city, state, button_id, localStorage.getItem('token'));
+        button.classList.replace('far','fas');
+        button.classList.replace('empty-like', 'like');
+        user.likeRestaurant(city, state, button_id, localStorage.getItem('token'));
     } else {
-        console.log(button);
-        $("#like_button_" + button_id).replaceWith(`<button href="#" id="like_button_${button.id}" class="btn btn btn-primary text-light btn-block list-page empty-like"><i class="far fa-thumbs-up"></i></button>`);
+        button.classList.replace('fas','far');
+        button.classList.replace('like', 'empty-like');
     }
 }
 
 let handleDislikeButton = function (button_id, city, state){
-    let button = document.getElementById("dislike_button_" + button_id);
-    
+    let card = document.getElementById('card_'+button_id);
+    card.replaceWith('');
+    user.dislikeRestaurant(city, state, button_id, localStorage.getItem('token'));
 }
 
 export const getRestaurantObject = function (restaurant_id) {
