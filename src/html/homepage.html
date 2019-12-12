@@ -15,7 +15,7 @@
     </head>
 
     <body>
-        <div class="container">
+        <div class="all-content">
                 <nav class="navbar navbar-ct-default navbar-fixed-top" role="navigation">
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav navbar-right">
@@ -32,7 +32,7 @@
                         </li>
                     </ul>
                     </div><!-- /.navbar-collapse -->
-                </div><!-- /.container-fluid -->
+                <!-- /.container-fluid -->
                 </nav>
                   <!--  end navbar -->
             <div class = "location-searcher">
@@ -48,7 +48,7 @@
                     <strong>Price</strong>
                     <br> 
                     <select id="price_filter" class="custom-select">
-                            <option value="blank"></option>
+                            <option value="blank">Any</option>
                             <option value="1">$</option>
                             <option value="2">$$</option>
                             <option value="3">$$$</option>
@@ -59,7 +59,7 @@
                     <strong>Rating</strong>
                     <br> 
                     <select id="rating_filter" class="custom-select">
-                            <option value="blank"></option>
+                            <option value="blank">Any</option>
                             <option value=1>1 star</option>
                             <option value=2>2 stars</option>
                             <option value=3>3 stars</option>
@@ -71,53 +71,16 @@
                             <strong>Cuisine</strong>
                             <br> 
                             <select id="cuisine_filter" class="custom-select">
-                             <option value="blank"></option>
-                            <option>American</option>
-                            <option>Asian Fusion</option>
-                            <option>Belgian</option>
-                            <option">Bistros</option>
-                            <option>Breakfast/Brunch</option>
-                            <option>Burgers</option>
-                            <option>Cafes</option>
-                            <option>Cajun/Creole</option>
-                            <option>Carribean</option>
-                            <option>Chinese</option>
-                            <option>Comfort Food</option>
-                            <option>Cuban</option>
-                            <option>Delis</option>
-                            <option>Diners</option>
-                            <option>Fast Food</option>
-                            <option>Food Court</option>
-                            <option>Diners</option>
-                            <option>French</option>
-                            <option>Gluten-Free</option>
-                            <option>Halal</option>
-                            <option>Indian</option>
-                            <option>Italian</option>
-                            <option>Diners</option>
-                            <option>Japenese</option>
-                            <option>Korean</option>
-                            <option>Kosher</option>
-                            <option>Latin American</option>
-                            <option>Malaysian</option>
-                            <option>Mediteranean</option>
-                            <option>Mexican</option>
-                            <option>Peruvian</option>
-                            <option>Pizza</option>
-                            <option>Portuguese</option>
-                            <option>Salad</option>
-                            <option>Sandwiches</option>
-                            <option>Seafood</option>
-                            <option>Southern</option>
-                            <option>Spanish</option>
-                            <option>Steakhouse</option>
-                            <option>Sushi</option>
-                            <option>Tapas</option>
-                            <option>Tex-Mex</option>
-                            <option>Thai</option>
-                            <option>Vegan</option>
-                            <option>Vegetarian</option>
-                            <option>Vietnamese</option>
+                             <option value="blank">Any</option>
+                            <option>Italian</option>
+                            <option>Thai</option>
+                            <option>Chinese</option>
+                            <option>Mexican</option>
+                            <option>Seafood</option>
+                            <option>Burgers</option>
+                            <option>Cafes</option>
+                            <option>Bars</option>
+                            <option>Vegan</option>
 
                             </select>
                         </div>
@@ -133,6 +96,7 @@
                 </div>
                 
             </div>
+
             <div class="saved-lists">
                 <div class="container">
                         <h2> Your saved lists: </h2>

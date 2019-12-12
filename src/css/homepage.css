@@ -1,9 +1,13 @@
 
 .location-searcher{
-    padding: 2% 20% 2% 20%;
+    padding: 8% 20% 8% 20%;
     color: rgb(63, 63, 63);
     text-align: center;
     border-bottom: black;
+}
+
+.all-content{
+    min-height: 100%;
 }
 
 .location-search-button{
@@ -24,6 +28,8 @@
 
 body{
     background-color: rgb(213, 215, 224);
+    height: 100%;
+    margin: 0;
 }
 
 
@@ -47,6 +53,7 @@ body{
 .saved-lists{
     background-color: rgba(2, 3, 99, 0.836);
     color: rgb(213, 215, 224);
+    min-height: 100%;
 }
 
 h2{
