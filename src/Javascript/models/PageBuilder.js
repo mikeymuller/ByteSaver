@@ -1,3 +1,4 @@
+import {APICaller} from './APICaller.js';
 export class PageBuilder {
     
     getSearchCard(item, isInList, search, isDisliked) {
@@ -78,9 +79,8 @@ export class PageBuilder {
     }
 
     loadFilterHTML(){
-        let cuisines = ['American','Asian Fusion','Belgian','Bistros','Breakfast/Brunch','Burgers',  'Cafes','Cajun/Creole','Carribean','Chinese','Comfort Food',  'Cuban',
-        'Delis','Diners','Fast Food','Food Court','Diners','French','Gluten-Free','Halal','Indian','Italian','Diners','Japenese','Korean','Kosher','Latin American','Malaysian','Mediteranean',
-        'Mexican','Peruvian','Pizza','Portuguese','Salad','Sandwiches','Seafood','Southern','Spanish','Steakhouse','Sushi','Tapas','Tex-Mex','Thai','Vegan','Vegetarian','Vietnamese' ];
+        let caller = new APICaller();
+        let cuisines = caller.getCuisineFilters();
 
         let cuisineDropdownOptions = '';
         cuisines.forEach((item) => {

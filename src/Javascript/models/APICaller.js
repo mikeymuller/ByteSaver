@@ -120,6 +120,10 @@ export class APICaller {
         return result;
     }
 
+    getCuisineFilters(){
+        return ['Italian', 'Thai', 'Chinese', 'Mexican', 'Seafood', 'Burgers', 'Cafes', 'Bars', 'Vegan'];
+    }
+
     getRestaurantImageUrl(restaurant){
         return restaurant.image_url;
     }
