@@ -46,38 +46,38 @@ export const filterRestaurants = function(RESTAURANTS, cuisine, price, rating) {
 }
 
 const searchButtonHandler = async function(){
-        let locationText = $('.location-input').val();
-        let filterValues = {
-            "price": $('#price_filter').val().toLowerCase(),
-            "rating": $('#rating_filter').val().toLowerCase(),
-            "cuisine": $('#cuisine_filter').val().toLowerCase()
-        };
+    let locationText = $('.location-input').val();
+    let filterValues = {
+        "price": $('#price_filter').val().toLowerCase(),
+        "rating": $('#rating_filter').val().toLowerCase(),
+        "cuisine": $('#cuisine_filter').val().toLowerCase()
+    };
 
-        console.log(filterValues);
-    
-        if(locationText == ''){
-            console.log("empty");
-        }
-        else{
-            if(validateCity(locationText)){
-                await privateStorage.incrementCity(cityParam, stateParam, token);
-                let url = `results.html?type=search&state=${stateParam}&city=${cityParam}&price=${filterValues.price}&rating=${filterValues.rating}&cuisine=${filterValues.cuisine}`;
-                let returned_restaurants = [];
-                yelp.search(cityParam,stateParam).then((result) => {
-                    returned_restaurants = filterRestaurants(result, filterValues.cuisine, filterValues.price, filterValues.rating);
-                }).then(() => {
-                    if (returned_restaurants.length == 0) {
-                        console.log('No restaurants returned');
-                        $('#search_error_message').html(`<p style="color: red">Your search did not return any results.</p>`);
-                    } else {
-                        window.location.href = url;
-                    }
-                });
-            } else {
-                console.log("city not found");
-            }
+    console.log(filterValues);
+
+    if(locationText == ''){
+        console.log("empty");
+    }
+    else{
+        if(validateCity(locationText)){
+            await privateStorage.incrementCity(cityParam, stateParam, token);
+            let url = `results.html?type=search&state=${stateParam}&city=${cityParam}&price=${filterValues.price}&rating=${filterValues.rating}&cuisine=${filterValues.cuisine}`;
+            let returned_restaurants = [];
+            yelp.search(cityParam,stateParam).then((result) => {
+                returned_restaurants = filterRestaurants(result, filterValues.cuisine, filterValues.price, filterValues.rating);
+            }).then(() => {
+                if (returned_restaurants.length == 0) {
+                    console.log('No restaurants returned');
+                    $('#search_error_message').html(`<p style="color: red">Your search did not return any results.</p>`);
+                } else {
+                    window.location.href = url;
+                }
+            });
+        } else {
+            console.log("city not found");
         }
     }
+}
 
 const validateCity = function(input){
 
