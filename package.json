@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@tonybadguy/call-me-maybe": "^2.1.1",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "bcrypt": "^3.0.6",
     "bootstrap": "^4.4.0",
     "bootstrap-icons": "^1.0.0-alpha",
